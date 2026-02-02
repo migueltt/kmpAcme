@@ -2,16 +2,19 @@
 This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM), Server.
 
 ### History log
-`Feb 01, 2026`: Initial changes right after creating a KMP Project using the Kotlin Multiplatform Project Wizard.
-- All five different applications can be executed without problems:
-- Android
-  - iOS
-  - Desktop (JVM)
-  - Server (Ktor)
-  - Web (JS)
-  - Web (Wasm)
-- These changes are only to fix several issues related to gradle-plugins, organizing all modules and components with
-the same basic functionality. 
+* `Feb 01, 2026`: Initial project creation through AndroidStudio Kotlin Multiplatform Project Wizard.
+   See tag [KMP-default](https://github.com/migueltt/kmpAcme/tree/c17c0e6cec5b90c4deb690f8726522b01dbb7843)
+* `Feb 01, 2026`: Initial changes right after creating a KMP Project using the Kotlin Multiplatform Project Wizard.
+  See tag [KMP-fixed](https://github.com/migueltt/kmpAcme/tree/c6a0078d9ca0d4d2efb8b0f12362fe213ff9e86e)
+  - All five different applications can be executed without problems:
+  - Android
+    - iOS
+    - Desktop (JVM)
+    - Server (Ktor)
+    - Web (JS)
+    - Web (Wasm)
+  - These changes are only to fix several issues related to gradle-plugins, organizing all modules and components with
+  the same basic functionality. 
 
 ----
 ### Project Structure
