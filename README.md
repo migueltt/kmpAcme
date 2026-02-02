@@ -6,7 +6,7 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM
   Browse files for tag [`KMP-default`](https://github.com/migueltt/kmpAcme/tree/c17c0e6cec5b90c4deb690f8726522b01dbb7843).
 * `Feb 01, 2026 - KMP-fixed`: Initial changes right after creating a KMP Project using the Kotlin Multiplatform Project Wizard.
   Browse files for tag [`KMP-fixed`](https://github.com/migueltt/kmpAcme/tree/c6a0078d9ca0d4d2efb8b0f12362fe213ff9e86e).
-  - All five different applications can be executed without problems:
+  - All six different applications can be executed without problems:
     - Android
     - iOS
     - Desktop (JVM)
