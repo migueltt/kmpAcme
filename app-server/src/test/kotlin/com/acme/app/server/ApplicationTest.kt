@@ -24,6 +24,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 import com.acme.kmp.shared.Greeting
+import com.acme.server.app.module
 
 class ApplicationTest {
     @Test

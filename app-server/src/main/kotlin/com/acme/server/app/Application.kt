@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.acme.app.server
+package com.acme.server.app
 
 import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
