@@ -10,10 +10,15 @@ local.properties
 captures
 .externalNativeBuild
 .cxx
+
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
 !*.xcodeproj/project.xcworkspace/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
+
 node_modules/
+
+/kotlin-js-store
+**/yarn.lock
