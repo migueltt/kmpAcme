@@ -6,9 +6,9 @@ Go back in time through each tag for each major change.
 
 * `Feb 04, 2026 - `[`tag "KMP-themed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed) ([browse files](https://github.com/migueltt/kmpAcme/tree/1370a8d1a952ced59c84087586b922af264a24fc))
   Applying theme and fonts.
-  - Support for dark/light themes, using [Material Theme Builder](https://material-foundation.github.io/material-theme-builder)
-  - Custom font and how to set it up through [Google Fonts](http://fonts.google.com)
-  - Overall structure for easier maintenance
+  - Support for dark/light themes, using [Material Theme Builder](https://material-foundation.github.io/material-theme-builder) - see [README_Theme.md](./kmpCompose/README_Theme.md)
+  - Custom font and how to set it up through [Google Fonts](http://fonts.google.com) - see [README_Typography.md](./kmpCompose/README_Typography.md)
+  - Overall theme and typography structure for easier maintenance
 * `Feb 01, 2026 - `[`tag "KMP-fixed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-fixed) ([browse files](https://github.com/migueltt/kmpAcme/tree/c6a0078d9ca0d4d2efb8b0f12362fe213ff9e86e)):
   Initial changes right after creating a KMP Project using the Kotlin Multiplatform Project Wizard.
   - All six different applications can be executed without problems:
@@ -111,7 +111,7 @@ in your IDE's toolbar or run it directly from the terminal:
     ```
   - on Windows
     ```shell
-      set JAVA_HOME="C:\Program Files\Android\Android Studio\jbr"
+    set JAVA_HOME="C:\Program Files\Android\Android Studio\jbr"
     .\gradlew.bat :kmpCompose:wasmJsBrowserDevelopmentRun
     ```
 - for the JS target (slower, supports older browsers):
@@ -122,7 +122,7 @@ in your IDE's toolbar or run it directly from the terminal:
     ```
   - on Windows
     ```shell
-      set JAVA_HOME="C:\Program Files\Android\Android Studio\jbr"
+    set JAVA_HOME="C:\Program Files\Android\Android Studio\jbr"
     .\gradlew.bat :kmpCompose:jsBrowserDevelopmentRun
     ```
 
