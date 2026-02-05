@@ -33,6 +33,7 @@ kotlin {
         implementation(projects.kmpCompose)
         implementation(libs.androidx.compose.activity)
         implementation(libs.compose.foundation)
+        implementation(libs.compose.material3)
         implementation(libs.compose.ui.tooling.preview)
         // Not really required - all @Preview should be in kmpCompose
         debugImplementation(libs.compose.ui.tooling)

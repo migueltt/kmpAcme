@@ -19,33 +19,43 @@ package com.acme.kmp.compose
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.AndroidUiModes
 import androidx.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.resources.painterResource
 
 import kmpacme.kmpcompose.generated.resources.Res
 import kmpacme.kmpcompose.generated.resources.compose_multiplatform
 
+import com.acme.kmp.compose.theme.AppTheme
+import com.acme.kmp.compose.theme.Theme
 import com.acme.kmp.shared.Greeting
 
+/** Main composable application.
+ *
+ * @param colorScheme Color scheme. Defaults to either [Theme.darkScheme] or [Theme.lightScheme].
+ */
 @Composable
-@Preview
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
+fun App(colorScheme: ColorScheme = if (isSystemInDarkTheme()) Theme.darkScheme else Theme.lightScheme) {
+    AppTheme(colorScheme = colorScheme) {
+        // Restore state after recomposition.
+        var showContent by rememberSaveable { mutableStateOf(false) }
         Column(
             modifier =
                 Modifier
@@ -69,4 +79,35 @@ fun App() {
             }
         }
     }
+}
+
+@Composable
+@Preview(
+    showBackground = true,
+    uiMode = AndroidUiModes.UI_MODE_NIGHT_NO,
+    showSystemUi = true,
+)
+private fun AppPreviewLight() {
+    App()
+}
+
+@Composable
+@Preview(
+    showBackground = true,
+    uiMode = AndroidUiModes.UI_MODE_NIGHT_YES,
+    showSystemUi = true,
+)
+private fun AppPreviewDark() {
+    App()
+}
+
+@Composable
+@Preview(
+    showBackground = true,
+    uiMode = AndroidUiModes.UI_MODE_NIGHT_NO,
+    showSystemUi = true,
+    fontScale = 2.0f,
+)
+private fun AppPreviewLargeFont() {
+    App()
 }
