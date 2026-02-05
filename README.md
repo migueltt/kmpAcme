@@ -15,6 +15,11 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM
     - Web (Wasm)
   - These changes are only to fix several issues related to gradle-plugins (kmp, cmp, android), organizing all modules and components with
   the same basic functionality. There has been several issues since Google introduced Android Gradle plugin 9+.
+* `Feb 04, 2026 - `[`tag "KMP-themed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed) ([browse files](https://github.com/migueltt/kmpAcme/tree/1370a8d1a952ced59c84087586b922af264a24fc))
+  Applying theme and fonts.
+  - Support for dark/light themes, using [Material Theme Builder](https://material-foundation.github.io/material-theme-builder)
+  - Custom font and how to set it up through [Google Fonts](http://fonts.google.com)
+  - Overall structure for easier maintenance
 
 ----
 ### Project Structure
