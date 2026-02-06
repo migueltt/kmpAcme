@@ -1,6 +1,19 @@
 # KMP Acme
 This is a Kotlin Multiplatform PoC/reference project targeting Android, iOS, Web, Desktop (JVM), Server.
 
+Based on the concepts around [Dynamic Content](https://medium.com/dynamic-content) and its technical implementation
+using Kotlin Multiplatform and Compose Multiplatform:
+1. [Dynamic Mobile Apps](https://medium.com/dynamic-content/dynamic-mobile-apps-b727f946aa14)
+2. [Dynamic Content Strategy](https://medium.com/dynamic-content/dynamic-content-strategy-d824570b7302)
+3. [Dynamic Content Architecture](https://medium.com/dynamic-content/dynamic-content-strategy-d824570b7302)
+4. _More to come in the future..._
+
+Related technical articles:
+1. [Kotlin Multiplatform Setup](https://medium.com/dynamic-content/kotlin-multiplatform-setup-84cdcc4d6341)
+   _(which references this repository)_
+2. _More to come in the future..._
+
+----
 ## Major changes 
 Go back in time through each tag for each major change.
 
