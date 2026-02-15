@@ -81,6 +81,15 @@ fun App(colorScheme: ColorScheme = if (isSystemInDarkTheme()) Theme.darkScheme e
     }
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
+
+/* Previews should be included only in this `kmpCompose` module.
+ *
+ * Note that within `kmpCompose/build.gradle.kts` these 2 dependencies must be included:
+ * implementation(libs.compose.ui.tooling.preview) -> already included through `libs.bundles.compose.multiplatform`
+ * "androidRuntimeClasspath"(libs.compose.ui.tooling)
+ */
+
 @Composable
 @Preview(
     showBackground = true,
