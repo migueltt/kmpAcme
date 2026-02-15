@@ -44,6 +44,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             // If you only need to support Dark/Light themes, do not include `getColorScheme()`.
             App()
+            // Supporting Dynamic Colors invalidates your "organization" theme.
             // App(colorScheme = getColorScheme())
         }
     }
@@ -68,6 +69,16 @@ private fun getColorScheme(): ColorScheme {
         else -> Theme.lightScheme
     }
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+/* Previews can be done in module `app-android`, but it is highly preferred to do it in module `kmpCompose`.
+ * Only implement previews if there's something really specific to the Android implementation.
+ *
+ * Note that within `app-android/build.gradle.kts` these 2 dependencies must be included:
+ * implementation(libs.compose.ui.tooling.preview)
+ * debugImplementation(libs.compose.ui.tooling)
+ */
 
 @Composable
 @Preview(
