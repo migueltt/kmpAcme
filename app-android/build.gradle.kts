@@ -34,11 +34,14 @@ kotlin {
         implementation(libs.androidx.compose.activity)
         implementation(libs.compose.foundation)
         implementation(libs.compose.material3)
-        implementation(libs.compose.ui.tooling.preview)
-        // Not really required - all @Preview should be in kmpCompose
-        debugImplementation(libs.compose.ui.tooling)
         testImplementation(libs.kotlin.test.junit)
         androidTestImplementation(libs.bundles.android.test)
+        // Not really required - all @Preview's should be in kmpCompose
+        // Enable to use `@Preview` and `AndroidUiModes`
+        implementation(libs.compose.ui.tooling.preview)
+        // Not really required - all @Preview's should be in kmpCompose
+        // Enable to visualize @Preview in AndroidStudio
+        debugImplementation(libs.compose.ui.tooling)
     }
 }
 

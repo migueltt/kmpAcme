@@ -9,11 +9,20 @@ import androidx.compose.runtime.Composable
 
 /** Defines the theme for your app.
  *
+ * This is included within [com.acme.kmp.compose.App].
+ *
+ * This is `internal` since [App][com.acme.kmp.compose.App] is the only entry point other platforms
+ * should care about.
+ * Also, any `@Preview` should only be defined within `kmpCompose` module.
+ *
+ * If there are specific platform requirements and motivation to define `@Composable` in other modules, you
+ * should use `AppTheme` to wrap such components to verify their correct rendering.
+ *
  * @param colorScheme Color scheme. Defaults to either [Theme.darkScheme] or [Theme.lightScheme].
  * @param content You app [Composable]s.
  */
 @Composable
-fun AppTheme(
+internal fun AppTheme(
     colorScheme: ColorScheme = if (isSystemInDarkTheme()) Theme.darkScheme else Theme.lightScheme,
     content: @Composable () -> Unit,
 ) {
@@ -32,14 +41,22 @@ fun AppTheme(
  * plus some refactoring to keep everything organized.
  *
  * @see AppTheme
+ * @see Palette
  */
 object Theme {
+    /** Using [lightColorScheme] with all our [Palette] colors.
+     *
+     * Note that all arguments are specified when calling [lightColorScheme].
+     * Commented ones are using the default values.
+     * This was included just to track future changes.
+     */
     val lightScheme =
         lightColorScheme(
             primary = Palette.Light.primaryLight,
             onPrimary = Palette.Light.onPrimaryLight,
             primaryContainer = Palette.Light.primaryContainerLight,
             onPrimaryContainer = Palette.Light.onPrimaryContainerLight,
+            inversePrimary = Palette.Light.inversePrimaryLight,
             secondary = Palette.Light.secondaryLight,
             onSecondary = Palette.Light.onSecondaryLight,
             secondaryContainer = Palette.Light.secondaryContainerLight,
@@ -48,36 +65,56 @@ object Theme {
             onTertiary = Palette.Light.onTertiaryLight,
             tertiaryContainer = Palette.Light.tertiaryContainerLight,
             onTertiaryContainer = Palette.Light.onTertiaryContainerLight,
-            error = Palette.Light.errorLight,
-            onError = Palette.Light.onErrorLight,
-            errorContainer = Palette.Light.errorContainerLight,
-            onErrorContainer = Palette.Light.onErrorContainerLight,
             background = Palette.Light.backgroundLight,
             onBackground = Palette.Light.onBackgroundLight,
             surface = Palette.Light.surfaceLight,
             onSurface = Palette.Light.onSurfaceLight,
             surfaceVariant = Palette.Light.surfaceVariantLight,
             onSurfaceVariant = Palette.Light.onSurfaceVariantLight,
+            // surfaceTint = primary,
+            inverseSurface = Palette.Light.inverseSurfaceLight,
+            inverseOnSurface = Palette.Light.inverseOnSurfaceLight,
+            error = Palette.Light.errorLight,
+            onError = Palette.Light.onErrorLight,
+            errorContainer = Palette.Light.errorContainerLight,
+            onErrorContainer = Palette.Light.onErrorContainerLight,
             outline = Palette.Light.outlineLight,
             outlineVariant = Palette.Light.outlineVariantLight,
             scrim = Palette.Light.scrimLight,
-            inverseSurface = Palette.Light.inverseSurfaceLight,
-            inverseOnSurface = Palette.Light.inverseOnSurfaceLight,
-            inversePrimary = Palette.Light.inversePrimaryLight,
-            surfaceDim = Palette.Light.surfaceDimLight,
             surfaceBright = Palette.Light.surfaceBrightLight,
-            surfaceContainerLowest = Palette.Light.surfaceContainerLowestLight,
-            surfaceContainerLow = Palette.Light.surfaceContainerLowLight,
             surfaceContainer = Palette.Light.surfaceContainerLight,
             surfaceContainerHigh = Palette.Light.surfaceContainerHighLight,
             surfaceContainerHighest = Palette.Light.surfaceContainerHighestLight,
+            surfaceContainerLow = Palette.Light.surfaceContainerLowLight,
+            surfaceContainerLowest = Palette.Light.surfaceContainerLowestLight,
+            surfaceDim = Palette.Light.surfaceDimLight,
+            // primaryFixed = ColorLightTokens.PrimaryFixed,
+            // primaryFixedDim = ColorLightTokens.PrimaryFixedDim,
+            // onPrimaryFixed = ColorLightTokens.OnPrimaryFixed,
+            // onPrimaryFixedVariant = ColorLightTokens.OnPrimaryFixedVariant,
+            // secondaryFixed = ColorLightTokens.SecondaryFixed,
+            // secondaryFixedDim = ColorLightTokens.SecondaryFixedDim,
+            // onSecondaryFixed = ColorLightTokens.OnSecondaryFixed,
+            // onSecondaryFixedVariant = ColorLightTokens.OnSecondaryFixedVariant,,
+            // tertiaryFixed = ColorLightTokens.TertiaryFixed,
+            // tertiaryFixedDim = ColorLightTokens.TertiaryFixedDim,
+            // onTertiaryFixed = ColorLightTokens.OnTertiaryFixed,
+            // onTertiaryFixedVariant = ColorLightTokens.OnTertiaryFixedVariant,
         )
+
+    /** Using [darkColorScheme] with all our [Palette] colors.
+     *
+     * Note that all arguments are specified when calling [darkColorScheme].
+     * Commented ones are using the default values.
+     * This was included just to track future changes.
+     */
     val darkScheme =
         darkColorScheme(
             primary = Palette.Dark.primaryDark,
             onPrimary = Palette.Dark.onPrimaryDark,
             primaryContainer = Palette.Dark.primaryContainerDark,
             onPrimaryContainer = Palette.Dark.onPrimaryContainerDark,
+            inversePrimary = Palette.Dark.inversePrimaryDark,
             secondary = Palette.Dark.secondaryDark,
             onSecondary = Palette.Dark.onSecondaryDark,
             secondaryContainer = Palette.Dark.secondaryContainerDark,
@@ -86,29 +123,41 @@ object Theme {
             onTertiary = Palette.Dark.onTertiaryDark,
             tertiaryContainer = Palette.Dark.tertiaryContainerDark,
             onTertiaryContainer = Palette.Dark.onTertiaryContainerDark,
-            error = Palette.Dark.errorDark,
-            onError = Palette.Dark.onErrorDark,
-            errorContainer = Palette.Dark.errorContainerDark,
-            onErrorContainer = Palette.Dark.onErrorContainerDark,
             background = Palette.Dark.backgroundDark,
             onBackground = Palette.Dark.onBackgroundDark,
             surface = Palette.Dark.surfaceDark,
             onSurface = Palette.Dark.onSurfaceDark,
             surfaceVariant = Palette.Dark.surfaceVariantDark,
             onSurfaceVariant = Palette.Dark.onSurfaceVariantDark,
+            // surfaceTint = primary,
+            inverseSurface = Palette.Dark.inverseSurfaceDark,
+            inverseOnSurface = Palette.Dark.inverseOnSurfaceDark,
+            error = Palette.Dark.errorDark,
+            onError = Palette.Dark.onErrorDark,
+            errorContainer = Palette.Dark.errorContainerDark,
+            onErrorContainer = Palette.Dark.onErrorContainerDark,
             outline = Palette.Dark.outlineDark,
             outlineVariant = Palette.Dark.outlineVariantDark,
             scrim = Palette.Dark.scrimDark,
-            inverseSurface = Palette.Dark.inverseSurfaceDark,
-            inverseOnSurface = Palette.Dark.inverseOnSurfaceDark,
-            inversePrimary = Palette.Dark.inversePrimaryDark,
-            surfaceDim = Palette.Dark.surfaceDimDark,
             surfaceBright = Palette.Dark.surfaceBrightDark,
-            surfaceContainerLowest = Palette.Dark.surfaceContainerLowestDark,
-            surfaceContainerLow = Palette.Dark.surfaceContainerLowDark,
             surfaceContainer = Palette.Dark.surfaceContainerDark,
             surfaceContainerHigh = Palette.Dark.surfaceContainerHighDark,
             surfaceContainerHighest = Palette.Dark.surfaceContainerHighestDark,
+            surfaceContainerLow = Palette.Dark.surfaceContainerLowDark,
+            surfaceContainerLowest = Palette.Dark.surfaceContainerLowestDark,
+            surfaceDim = Palette.Dark.surfaceDimDark,
+            // primaryFixed = ColorDarkTokens.PrimaryFixed,
+            // primaryFixedDim = ColorDarkTokens.PrimaryFixedDim,
+            // onPrimaryFixed = ColorDarkTokens.OnPrimaryFixed,
+            // onPrimaryFixedVariant = ColorDarkTokens.OnPrimaryFixedVariant,
+            // secondaryFixed = ColorDarkTokens.SecondaryFixed,
+            // secondaryFixedDim = ColorDarkTokens.SecondaryFixedDim,
+            // onSecondaryFixed = ColorDarkTokens.OnSecondaryFixed,
+            // onSecondaryFixedVariant = ColorDarkTokens.OnSecondaryFixedVariant,
+            // tertiaryFixed = ColorDarkTokens.TertiaryFixed,
+            // tertiaryFixedDim = ColorDarkTokens.TertiaryFixedDim,
+            // onTertiaryFixed = ColorDarkTokens.OnTertiaryFixed,
+            // onTertiaryFixedVariant = ColorDarkTokens.OnTertiaryFixedVariant,
         )
 }
 

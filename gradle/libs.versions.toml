@@ -15,8 +15,8 @@
 #
 # ======================================================================================================================
 [versions]
-android-gradle-plugin = "9.0.0"
-kotlin = "2.3.0"
+android-gradle-plugin = "9.0.1"
+kotlin = "2.3.10"
 spotless = "8.2.1"
 
 # Core Libraries
@@ -29,12 +29,12 @@ androidSdkCompile = "36"
 androidSdkMin = "24"
 androidSdkTarget = "36"
 
-androidx-activity = "1.12.3"
+androidx-activity = "1.12.4"
 androidx-espresso = "3.7.0"
 androidx-testExt = "1.3.0"
 
 # KMP Compose
-compose-multiplatform = "1.10.0"
+compose-multiplatform = "1.10.1"
 compose-hot-reload = "1.0.0"
 compose-material3 = "1.9.0"
 compose-material-icons-extended = "1.7.3"
@@ -43,14 +43,14 @@ compose-lifecycle = "2.9.6"
 # Old nav
 # compose-navigation = "2.9.1"
 # KMP navigation3
-# WARNING: `1.1.0-alpha02` breaks Desktop-app -> java.lang.UnsatisfiedLinkError: 'int org.jetbrains.skiko.MetalApiKt.getAdapterMaxTextureSize(long)'
-compose-multiplatform-navigation = "1.1.0-alpha01"
-# WARNING: `1.3.0-alpha04` breaks Desktop-app -> java.lang.UnsatisfiedLinkError: 'int org.jetbrains.skiko.MetalApiKt.getAdapterMaxTextureSize(long)'
-compose-multiplatform-adaptive = "1.3.0-alpha03"
+# WARNING: `1.1.0-alpha02` --> requires compose-multiplatform = "1.10.1"
+compose-multiplatform-navigation = "1.1.0-alpha02"
+# WARNING: `1.3.0-alpha04` --> requires compose-multiplatform = "1.10.1"
+compose-multiplatform-adaptive = "1.3.0-alpha04"
 compose-multiplatform-lifecycle = "2.10.0-alpha08"
 
 ktor = "3.4.0"
-logback = "1.5.27"
+logback = "1.5.29"
 
 junit = "4.13.2"
 
