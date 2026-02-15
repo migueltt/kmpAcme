@@ -14,6 +14,10 @@ Related technical articles:
 2. _More to come in the future..._
 
 ----
+### AndroidStudio Version
+`Android Studio Panda 1 | 2025.3.1 Patch 1 Build #AI-253.29346.138.2531.14876573`
+
+----
 ## Major changes 
 Go back in time through each tag for each major change.
 
