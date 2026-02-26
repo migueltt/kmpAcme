@@ -27,6 +27,10 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
 }
 
+group = "com.acme.kmp.compose"
+description = "Acme KMP Shared"
+version = "0.1.0"
+
 kotlin {
     compilerOptions {
         // Enable all warnings as errors
