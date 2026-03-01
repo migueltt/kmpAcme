@@ -21,11 +21,11 @@ Related technical articles:
 ## Major changes 
 Go back in time through each tag for each major change.
 
-* `Mar 01, 2026 - `[`tag "KMP-themed-2`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed-2) ([browse file](https://github.com/migueltt/kmpAcme/tree/c90ca33be44f34cfa9de509df162d9db14f84338)
+* `Mar 01, 2026 - `[`tag "KMP-themed-2`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed-2) ([browse files](https://github.com/migueltt/kmpAcme/tree/c90ca33be44f34cfa9de509df162d9db14f84338))
   - Some fixes and updates on documentation.
   - Add gradle task to generate `BuildConfig` for kmp-modules. 
 * `Feb 04, 2026 - `[`tag "KMP-themed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed) ([browse files](https://github.com/migueltt/kmpAcme/tree/1370a8d1a952ced59c84087586b922af264a24fc))
-  Applying theme and fonts.
+  - Applying theme and fonts.
   - Support for dark/light themes, using [Material Theme Builder](https://material-foundation.github.io/material-theme-builder) - see [README_Theme.md](./kmpCompose/README_Theme.md)
   - Custom font and how to set it up through [Google Fonts](http://fonts.google.com) - see [README_Typography.md](./kmpCompose/README_Typography.md)
   - Overall theme and typography structure for easier maintenance
