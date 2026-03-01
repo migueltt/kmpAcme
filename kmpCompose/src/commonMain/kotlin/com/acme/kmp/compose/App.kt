@@ -40,9 +40,8 @@ import androidx.compose.ui.tooling.preview.AndroidUiModes
 import androidx.compose.ui.tooling.preview.Preview
 import org.jetbrains.compose.resources.painterResource
 
-import kmpacme.kmpcompose.generated.resources.Res
-import kmpacme.kmpcompose.generated.resources.compose_multiplatform
-
+import com.acme.kmp.compose.kmpcompose.generated.resources.Res
+import com.acme.kmp.compose.kmpcompose.generated.resources.compose_multiplatform
 import com.acme.kmp.compose.theme.AppTheme
 import com.acme.kmp.compose.theme.Theme
 import com.acme.kmp.shared.Greeting

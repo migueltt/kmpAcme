@@ -28,7 +28,7 @@ plugins {
 }
 
 group = "com.acme.kmp.compose"
-description = "Acme KMP Shared"
+description = "Acme KMP Compose"
 version = "0.1.0"
 
 kotlin {

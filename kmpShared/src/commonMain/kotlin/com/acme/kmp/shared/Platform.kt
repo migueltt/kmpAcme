@@ -18,6 +18,8 @@ package com.acme.kmp.shared
 
 interface Platform {
     val name: String
+    val version: String
+        get() = ModuleBuildConfig.MODULE_VERSION
 }
 
 expect fun getPlatform(): Platform

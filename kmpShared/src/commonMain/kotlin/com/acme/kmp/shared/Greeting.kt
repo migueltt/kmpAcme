@@ -19,5 +19,5 @@ package com.acme.kmp.shared
 class Greeting {
     private val platform = getPlatform()
 
-    fun greet(): String = "Hello, ${platform.name}!"
+    fun greet(): String = "Hello, ${platform.name}! (version ${ModuleBuildConfig.MODULE_VERSION})"
 }

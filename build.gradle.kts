@@ -1,10 +1,10 @@
 @file:OptIn(ExperimentalTime::class)
 
-import kotlin.time.Clock
-import kotlin.time.ExperimentalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /*
  *    Copyright 2026 migueltt and/or Contributors
@@ -78,28 +78,30 @@ spotless {
 // TODO: Refactor into shared build.gradle.kts or use gradle conventions
 subprojects {
     plugins.withId("org.jetbrains.kotlin.multiplatform") {
+        // These tasks only apply to those using KMP plugin.
         configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
             // This task creates a `ModuleBuildConfig` for each module using KMP plugin.
             // The resulting class is under `commonMain` sourceSet.
             val kmpModuleBuildConfig by tasks.registering {
                 if (project.group.toString().isBlank()) {
-                    throw GradleException("Project 'group' must be specified")
+                    throw GradleException("Project 'group' must be specified in '${project.name}/build.gradle.kts'")
                 }
                 if (project.version.toString().isBlank()) {
-                    throw GradleException("Project 'version' must be specified")
+                    throw GradleException("Project 'version' must be specified in '${project.name}/build.gradle.kts")
                 }
                 if (project.description.isNullOrBlank()) {
-                    throw GradleException("Project 'description' must be specified")
+                    throw GradleException("Project 'description' must be specified in '${project.name}/build.gradle.kts")
                 }
                 // Track changes on module `build.gradle.kts`
                 inputs.file("build.gradle.kts")
                 val buildConfigName = "ModuleBuildConfig"
-                val buildDir = layout.buildDirectory.dir("generated/sources/buildConfig/kotlin/commonMain").also {
-                    // Register output - to be added into `sourceSets.commonMain`
-                    outputs.dir(it)
-                }
+                val buildDirCommonMain =
+                    layout.buildDirectory.dir("generated/sources/buildConfig/src/commonMain/kotlin").also {
+                        // Register output - to be added into `sourceSets.commonMain`
+                        outputs.dir(it)
+                    }
                 val pkgDirs = project.group.toString().replace(".", "/")
-                val buildConfigFile = buildDir.get().file("$pkgDirs/$buildConfigName.kt").asFile
+                val buildConfigFile = buildDirCommonMain.get().file("$pkgDirs/$buildConfigName.kt").asFile
                 doLast {
                     val now = Clock.System.now()
                     val tz = TimeZone.currentSystemDefault()
@@ -109,7 +111,7 @@ subprojects {
                         |package ${project.group}
                         |
                         |/** Module Build-Config for `${project.name}`.
-                        | * 
+                        | *
                         | * Generated on:
                         | * ```
                         | * ${now.toLocalDateTime(tz)}${tz.offsetAt(now)}
@@ -125,7 +127,7 @@ subprojects {
                         |    /** Module Group - from `build.gradle.kts` module `group`.  */
                         |    const val MODULE_GROUP: String = "${project.group}"
                         |}
-                        """.trimMargin()
+                        """.trimMargin(),
                     )
                 }
             }

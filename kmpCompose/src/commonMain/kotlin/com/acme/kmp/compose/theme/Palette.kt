@@ -12,6 +12,10 @@ import androidx.compose.ui.graphics.Color
  * @see AppTheme
  */
 internal object Palette {
+    /** Used for Light color scheme.
+     *
+     * @see Theme.lightScheme
+     */
     object Light {
         val primaryLight = Color(0xFF415F91)
         val onPrimaryLight = Color(0xFFFFFFFF)
@@ -50,6 +54,10 @@ internal object Palette {
         val surfaceContainerHighestLight = Color(0xFFE2E2E9)
     }
 
+    /** Used for Dark color scheme.
+     *
+     * @see Theme.darkScheme
+     */
     object Dark {
         val primaryDark = Color(0xFFAAC7FF)
         val onPrimaryDark = Color(0xFF0A305F)
