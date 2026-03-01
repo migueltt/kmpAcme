@@ -6,12 +6,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import org.jetbrains.compose.resources.Font
 
-import kmpacme.kmpcompose.generated.resources.Atma_Bold
-import kmpacme.kmpcompose.generated.resources.Atma_Light
-import kmpacme.kmpcompose.generated.resources.Atma_Medium
-import kmpacme.kmpcompose.generated.resources.Atma_Regular
-import kmpacme.kmpcompose.generated.resources.Atma_SemiBold
-import kmpacme.kmpcompose.generated.resources.Res
+import com.acme.kmp.compose.kmpcompose.generated.resources.Atma_Bold
+import com.acme.kmp.compose.kmpcompose.generated.resources.Atma_Light
+import com.acme.kmp.compose.kmpcompose.generated.resources.Atma_Medium
+import com.acme.kmp.compose.kmpcompose.generated.resources.Atma_Regular
+import com.acme.kmp.compose.kmpcompose.generated.resources.Atma_SemiBold
+import com.acme.kmp.compose.kmpcompose.generated.resources.Res
 
 /** All typography is set once within [AppTheme].
  *

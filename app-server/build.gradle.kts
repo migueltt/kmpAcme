@@ -22,7 +22,8 @@ plugins {
 }
 
 group = "com.acme.server.app"
-version = "1.0.0"
+description = "Acme Server App"
+version = "0.1.0"
 
 kotlin {
     compilerOptions {

@@ -16,10 +16,10 @@ Check [README_Typography.md](./README_Typography.md) if you want to use https://
 Locate and expand the zip file and copy the files to your project
 
 ## 4. Adjustments
-Based on the multiple files, some adjustments and refactoring was applied:
+Based on the multiple files, some adjustments and refactoring were applied:
 - See [Palette.kt](src/commonMain/kotlin/com/acme/kmp/compose/theme/Palette.kt)
 - See [Theme.kt](src/commonMain/kotlin/com/acme/kmp/compose/theme/Theme.kt)
 
 ## 5. Set your theme 
-- How to define your - see [Theme.kt](src/commonMain/kotlin/com/acme/kmp/compose/theme/Theme.kt)
+- How to define your theme - see [Theme.kt](src/commonMain/kotlin/com/acme/kmp/compose/theme/Theme.kt)
 - How to use your theme - see [App.kt](src/commonMain/kotlin/com/acme/kmp/compose/App.kt)
