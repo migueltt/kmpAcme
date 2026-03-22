@@ -36,8 +36,8 @@ kotlin {
         freeCompilerArgs.add("-XXLanguage:+ExplicitBackingFields")
         freeCompilerArgs.add("-Xreturn-value-checker=full")
     }
-    androidLibrary {
-        namespace = "com.acme.kmp.shared"
+    android {
+        namespace = project.group.toString()
         compileSdk =
             libs.versions.androidSdkCompile
                 .get()
