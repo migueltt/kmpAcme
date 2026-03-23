@@ -21,19 +21,19 @@ Related technical articles:
 ## Major changes 
 Go back in time through each tag for each major change.
 
-* `Mar 22, 2026 - `[`tag "KMP-03-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-03-2026-gradle)
+* `Mar 22, 2026 - `[`tag "KMP-03-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-03-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-03-2026-gradle))
   - Upgrade gradle and libraries
   - Include `BuildConfig` for Android.
   - Include `ModuleBuildConfig` for Kotlin Multiplatform modules.
-* `Mar 01, 2026 - `[`tag "KMP-themed-2`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed-2) ([browse files](https://github.com/migueltt/kmpAcme/tree/c90ca33be44f34cfa9de509df162d9db14f84338))
+* `Mar 01, 2026 - `[`tag "KMP-themed-2`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed-2) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-themed-2))
   - Some fixes and updates on documentation.
   - Add gradle task to generate `BuildConfig` for kmp-modules. 
-* `Feb 04, 2026 - `[`tag "KMP-themed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed) ([browse files](https://github.com/migueltt/kmpAcme/tree/1370a8d1a952ced59c84087586b922af264a24fc))
+* `Feb 04, 2026 - `[`tag "KMP-themed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-themed))
   - Applying theme and fonts.
   - Support for dark/light themes, using [Material Theme Builder](https://material-foundation.github.io/material-theme-builder) - see [README_Theme.md](./kmpCompose/README_Theme.md)
   - Custom font and how to set it up through [Google Fonts](http://fonts.google.com) - see [README_Typography.md](./kmpCompose/README_Typography.md)
   - Overall theme and typography structure for easier maintenance
-* `Feb 01, 2026 - `[`tag "KMP-fixed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-fixed) ([browse files](https://github.com/migueltt/kmpAcme/tree/c6a0078d9ca0d4d2efb8b0f12362fe213ff9e86e)):
+* `Feb 01, 2026 - `[`tag "KMP-fixed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-fixed) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-fixed)):
   Initial changes right after creating a KMP Project using the Kotlin Multiplatform Project Wizard.
   - All six different applications can be executed without problems:
     - Android
@@ -44,7 +44,7 @@ Go back in time through each tag for each major change.
     - Web (Wasm)
   - These changes are only to fix several issues related to gradle-plugins (kmp, cmp, android), organizing all modules and components with
   the same basic functionality. There has been several issues since Google introduced Android Gradle plugin 9+.
-* `Feb 01, 2026 - `[`tag "KMP-default"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-default) ([browse files](https://github.com/migueltt/kmpAcme/tree/c17c0e6cec5b90c4deb690f8726522b01dbb7843)):
+* `Feb 01, 2026 - `[`tag "KMP-default"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-default) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-default)):
   Initial project creation through AndroidStudio Kotlin Multiplatform Project Wizard.
 
 ----
