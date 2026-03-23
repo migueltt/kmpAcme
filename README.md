@@ -21,6 +21,10 @@ Related technical articles:
 ## Major changes 
 Go back in time through each tag for each major change.
 
+* `Mar 22, 2026 - `[`tag "KMP-03-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-03-2026-gradle)
+  - Upgrade gradle and libraries
+  - Include `BuildConfig` for Android.
+  - Include `ModuleBuildConfig` for Kotlin Multiplatform modules.
 * `Mar 01, 2026 - `[`tag "KMP-themed-2`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed-2) ([browse files](https://github.com/migueltt/kmpAcme/tree/c90ca33be44f34cfa9de509df162d9db14f84338))
   - Some fixes and updates on documentation.
   - Add gradle task to generate `BuildConfig` for kmp-modules. 
