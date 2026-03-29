@@ -83,26 +83,32 @@ subprojects {
             // This task creates a `ModuleBuildConfig` for each module using KMP plugin.
             // The resulting class is under `commonMain` sourceSet.
             val kmpModuleBuildConfig by tasks.registering {
-                if (project.group.toString().isBlank()) {
-                    throw GradleException("Project 'group' must be specified in '${project.name}/build.gradle.kts'")
-                }
-                if (project.version.toString().isBlank()) {
-                    throw GradleException("Project 'version' must be specified in '${project.name}/build.gradle.kts")
-                }
-                if (project.description.isNullOrBlank()) {
-                    throw GradleException("Project 'description' must be specified in '${project.name}/build.gradle.kts")
-                }
                 // Track changes on module `build.gradle.kts`
                 inputs.file("build.gradle.kts")
-                val buildConfigName = "ModuleBuildConfig"
                 val buildDirCommonMain =
                     layout.buildDirectory.dir("generated/sources/buildConfig/src/commonMain/kotlin").also {
                         // Register output - to be added into `sourceSets.commonMain`
                         outputs.dir(it)
                     }
-                val pkgDirs = project.group.toString().replace(".", "/")
-                val buildConfigFile = buildDirCommonMain.get().file("$pkgDirs/$buildConfigName.kt").asFile
                 doLast {
+                    // Validate 'project' attributes
+                    if (rootProject.name == project.group.toString()) {
+                        // This could happen if 'group' is not defined explicitly in module.
+                        throw GradleException("Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be different than '${rootProject.name}' (root-project name)")
+                    }
+                    if (project.group.toString().isBlank()) {
+                        // This could happen if 'group' is defined explicitly in module as "" (empty-string).
+                        throw GradleException("Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be a valid package name")
+                    }
+                    if (project.version.toString().isBlank()) {
+                        throw GradleException("Project 'version' must be specified in '${project.name}/build.gradle.kts")
+                    }
+                    if (project.description.isNullOrBlank()) {
+                        throw GradleException("Project 'description' must be specified in '${project.name}/build.gradle.kts")
+                    }
+                    val buildConfigName = "ModuleBuildConfig"
+                    val pkgDirs = project.group.toString().replace(".", "/")
+                    val buildConfigFile = buildDirCommonMain.get().file("$pkgDirs/$buildConfigName.kt").asFile
                     val now = Clock.System.now()
                     val tz = TimeZone.currentSystemDefault()
                     buildConfigFile.parentFile.mkdirs()
@@ -110,7 +116,7 @@ subprojects {
                         """
                         |package ${project.group}
                         |
-                        |/** Module Build-Config for `${project.name}`.
+                        |/** Build-Config for module `${project.name}` (${project.description}).
                         | *
                         | * Generated on:
                         | * ```
