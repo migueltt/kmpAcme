@@ -21,6 +21,9 @@ Related technical articles:
 ## Major changes 
 Go back in time through each tag for each major change.
 
+* `May 12, 2026 - `[`tag "KMP-04-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-04-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-04-2026-gradle))
+  - Upgrade gradle and libraries
+  - Minor formatting updates
 * `Mar 22, 2026 - `[`tag "KMP-03-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-03-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-03-2026-gradle))
   - Upgrade gradle and libraries
   - Include `BuildConfig` for Android.

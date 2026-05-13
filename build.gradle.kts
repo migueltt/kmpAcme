@@ -35,6 +35,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.ktor) apply false
     alias(libs.plugins.spotless) apply true
+    alias(libs.plugins.dependency.updates) apply true
 }
 
 buildscript {
@@ -57,7 +58,7 @@ spotless {
                     "ktlint_standard_no-unused-imports" to "enabled",
                     "ktlint_function_naming_ignore_when_annotated_with" to "Composable",
                     "ij_kotlin_line_break_after_multiline_when_entry" to "false",
-                    "ij_kotlin_imports_layout" to "*,|,kmpacme.**,|,com.acme.**",
+                    "ij_kotlin_imports_layout" to "*,|,com.acme.kmp.shared.kmpshared.**,|,com.acme.kmp.compose.kmpcompose.**,|,com.acme.**",
                     "indent_size" to 4,
                     "max_line_length" to 120,
                 ),
@@ -94,11 +95,15 @@ subprojects {
                     // Validate 'project' attributes
                     if (rootProject.name == project.group.toString()) {
                         // This could happen if 'group' is not defined explicitly in module.
-                        throw GradleException("Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be different than '${rootProject.name}' (root-project name)")
+                        throw GradleException(
+                            "Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be different than '${rootProject.name}' (root-project name)",
+                        )
                     }
                     if (project.group.toString().isBlank()) {
                         // This could happen if 'group' is defined explicitly in module as "" (empty-string).
-                        throw GradleException("Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be a valid package name")
+                        throw GradleException(
+                            "Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be a valid package name",
+                        )
                     }
                     if (project.version.toString().isBlank()) {
                         throw GradleException("Project 'version' must be specified in '${project.name}/build.gradle.kts")
