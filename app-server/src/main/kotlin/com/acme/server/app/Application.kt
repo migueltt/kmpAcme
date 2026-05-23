@@ -17,8 +17,10 @@
 package com.acme.server.app
 
 import io.ktor.server.application.Application
+import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.cors.routing.CORS
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
@@ -36,6 +38,9 @@ fun main() {
 }
 
 fun Application.module() {
+    install(CORS) {
+        allowHost("localhost:8080")
+    }
     routing {
         get("/") {
             call.respondText("Ktor: ${Greeting().greet()}")
