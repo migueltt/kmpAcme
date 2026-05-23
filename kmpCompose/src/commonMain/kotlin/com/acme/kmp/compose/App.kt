@@ -42,6 +42,7 @@ import org.jetbrains.compose.resources.painterResource
 
 import com.acme.kmp.compose.kmpcompose.generated.resources.Res
 import com.acme.kmp.compose.kmpcompose.generated.resources.compose_multiplatform
+
 import com.acme.kmp.compose.theme.AppTheme
 import com.acme.kmp.compose.theme.Theme
 import com.acme.kmp.shared.Greeting
