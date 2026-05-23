@@ -15,12 +15,20 @@ Related technical articles:
 
 ----
 ### AndroidStudio Version
-`Android Studio Panda 2 | 2025.3.2 Build #AI-253.30387.90.2532.14935130`
+`Android Studio Panda 4 | 2025.3.4 Patch 1 Build #AI-253.32098.37.2534.15336583` (built on May 4, 2026)
 
 ----
 ## Major changes 
-Go back in time through each tag for each major change.
+Go back in time through tags for each major change.
 
+* `May 23, 2026 - `[`tag "KMP-23-05-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-23-05-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-23-05-2026-gradle))
+  - Gradle upgraded to `v9.5.1` and related Android plugin to `v9.2.1`.
+  - Libraries and plugins upgraded to their most recent stable versions, as applicable.
+  - Minor formatting updates
+  - Module `app-server` default implementation includes CORS headers.
+  - All targets (Android, iOS, web-js, web-wasmJs, desktop) work without issues.
+    - iOS app tested with iOS `v26.5`.
+    - Android app targets API 37.
 * `May 12, 2026 - `[`tag "KMP-04-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-04-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-04-2026-gradle))
   - Upgrade gradle and libraries
   - Minor formatting updates
