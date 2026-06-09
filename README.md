@@ -14,13 +14,17 @@ Related technical articles:
 2. _More to come in the future..._
 
 ----
-### AndroidStudio Version
-`Android Studio Panda 4 | 2025.3.4 Patch 1 Build #AI-253.32098.37.2534.15336583` (built on May 4, 2026)
+### AndroidStudio
+- `Android Studio Quail 1 | 2026.1.1 Build #AI-261.23567.138.2611.15503007` (built on May 27, 2026)
+- Kotlin Multiplatform plugin `261.23567.43-AS`
+- Previews work on `kmpCompose` and `app-android` modules without issues.
 
 ----
 ## Major changes 
 Go back in time through tags for each major change.
 
+* `June 08, 2026 - `[`tag "KMP-2026-06-08-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-06-08-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-06-08-gradle))
+  - Mainly, Kotlin update to `2.4.0`
 * `May 23, 2026 - `[`tag "KMP-23-05-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-23-05-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-23-05-2026-gradle))
   - Gradle upgraded to `v9.5.1` and related Android plugin to `v9.2.1`.
   - Libraries and plugins upgraded to their most recent stable versions, as applicable.
