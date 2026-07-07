@@ -15,17 +15,19 @@ Related technical articles:
 
 ----
 ### AndroidStudio
-- `Android Studio Quail 1 | 2026.1.1 Build #AI-261.23567.138.2611.15503007` (built on May 27, 2026)
-- Kotlin Multiplatform plugin `261.23567.43-AS`
+- `Android Studio Quail 1 | 2026.1.1 Patch 2 Build #AI-261.23567.138.2611.15646644` (built on June 15, 2026)
+- Kotlin Multiplatform plugin `261.23567.78-AS`
 - Previews work on `kmpCompose` and `app-android` modules without issues.
 
 ----
 ## Major changes 
 Go back in time through tags for each major change.
 
-* `June 08, 2026 - `[`tag "KMP-2026-06-08-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-06-08-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-06-08-gradle))
+* `July 06, 2026 - `[`tag "KMP-2026-07-06-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-07-06-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-07-06-gradle))
+  - Libraries update for ktor, compose, collections, spotless. 
+* `June 08, 2026 - `[`tag "KMP-2026-06-08-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-06-08-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-06-08-gradle))
   - Mainly, Kotlin update to `2.4.0`
-* `May 23, 2026 - `[`tag "KMP-23-05-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-23-05-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-23-05-2026-gradle))
+* `May 23, 2026 - `[`tag "KMP-23-05-2026-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-23-05-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-23-05-2026-gradle))
   - Gradle upgraded to `v9.5.1` and related Android plugin to `v9.2.1`.
   - Libraries and plugins upgraded to their most recent stable versions, as applicable.
   - Minor formatting updates
@@ -33,14 +35,14 @@ Go back in time through tags for each major change.
   - All targets (Android, iOS, web-js, web-wasmJs, desktop) work without issues.
     - iOS app tested with iOS `v26.5`.
     - Android app targets API 37.
-* `May 12, 2026 - `[`tag "KMP-04-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-04-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-04-2026-gradle))
+* `May 12, 2026 - `[`tag "KMP-04-2026-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-04-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-04-2026-gradle))
   - Upgrade gradle and libraries
   - Minor formatting updates
-* `Mar 22, 2026 - `[`tag "KMP-03-2026-gradle`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-03-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-03-2026-gradle))
+* `Mar 22, 2026 - `[`tag "KMP-03-2026-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-03-2026-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-03-2026-gradle))
   - Upgrade gradle and libraries
   - Include `BuildConfig` for Android.
   - Include `ModuleBuildConfig` for Kotlin Multiplatform modules.
-* `Mar 01, 2026 - `[`tag "KMP-themed-2`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed-2) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-themed-2))
+* `Mar 01, 2026 - `[`tag "KMP-themed-2"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed-2) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-themed-2))
   - Some fixes and updates on documentation.
   - Add gradle task to generate `BuildConfig` for kmp-modules. 
 * `Feb 04, 2026 - `[`tag "KMP-themed"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-themed) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-themed))
@@ -53,7 +55,7 @@ Go back in time through tags for each major change.
   - All six different applications can be executed without problems:
     - Android
     - iOS
-    - Desktop (JVM)
+    - Desktop (JVM), Hot reload
     - Server (Ktor)
     - Web (JS)
     - Web (Wasm)
@@ -139,6 +141,8 @@ Ktor: Hello, Java 21.0.8!
 
 ----
 ### Build and Run Web Application
+- Run `./gradlew kotlinWasmUpgradeYarnLock` if errors with Yarn when running `kmpCompose [wasm]`
+- Run `./gradlew kotlinUpgradeYarnLock` if errors with Yarn when running `kmpCompose [js]`
 
 To build and run the development version of the web app, use the run configuration from the run widget
 in your IDE's toolbar or run it directly from the terminal:
