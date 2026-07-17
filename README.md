@@ -15,14 +15,18 @@ Related technical articles:
 
 ----
 ### AndroidStudio
-- `Android Studio Quail 1 | 2026.1.1 Patch 2 Build #AI-261.23567.138.2611.15646644` (built on June 15, 2026)
-- Kotlin Multiplatform plugin `261.23567.78-AS`
+- `Android Studio Quail 2 | 2026.1.2 Build #AI-261.25134.95.2612.15822958` (built on July 9, 2026)
+- Kotlin Multiplatform plugin `261.25134.80-AS`
 - Previews work on `kmpCompose` and `app-android` modules without issues.
 
 ----
 ## Major changes 
 Go back in time through tags for each major change.
 
+* `July 16, 2026 - `[`tag "KMP-2026-07-16-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-07-06-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-07-16-gradle))
+  - Gradle update to `9.6.1`
+  - Android Gradle plugin to `9.3.0`
+  - Other libraries upgrade
 * `July 06, 2026 - `[`tag "KMP-2026-07-06-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-07-06-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-07-06-gradle))
   - Libraries update for ktor, compose, collections, spotless. 
 * `June 08, 2026 - `[`tag "KMP-2026-06-08-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-06-08-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-06-08-gradle))
