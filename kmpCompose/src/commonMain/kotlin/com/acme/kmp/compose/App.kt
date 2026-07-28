@@ -56,6 +56,7 @@ fun App(colorScheme: ColorScheme = if (isSystemInDarkTheme()) Theme.darkScheme e
     AppTheme(colorScheme = colorScheme) {
         // Restore state after recomposition.
         var showContent by rememberSaveable { mutableStateOf(false) }
+        val greeting = remember { Greeting().greet() }
         Column(
             modifier =
                 Modifier
@@ -68,7 +69,6 @@ fun App(colorScheme: ColorScheme = if (isSystemInDarkTheme()) Theme.darkScheme e
                 Text("Click me!")
             }
             AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
