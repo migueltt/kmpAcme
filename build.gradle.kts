@@ -14,10 +14,13 @@
  *    limitations under the License.
  */
 
-@file:Suppress("UnstableApiUsage")
+@file:OptIn(ExperimentalTime::class)
 
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.offsetAt
+import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 plugins {
     // this is necessary to avoid the plugins to be loaded multiple times
@@ -117,8 +120,8 @@ subprojects {
                         val buildConfigName = "ModuleBuildConfig"
                         val pkgDirs = project.group.toString().replace(".", "/")
                         val buildConfigFile = buildDirCommonMain.get().file("$pkgDirs/$buildConfigName.kt").asFile
-                        val now = ZonedDateTime.now()
-                        val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+                        val now = Clock.System.now()
+                        val tz = TimeZone.currentSystemDefault()
                         buildConfigFile.parentFile.mkdirs()
                         buildConfigFile.writeText(
                             """
@@ -128,7 +131,7 @@ subprojects {
                         | *
                         | * Generated on:
                         | * ```
-                        | * ${now.format(formatter)}
+                        | * ${now.toLocalDateTime(tz)}${tz.offsetAt(now)}
                         | * ```
                         | */
                         |object $buildConfigName {
