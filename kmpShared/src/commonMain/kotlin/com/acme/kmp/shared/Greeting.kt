@@ -16,8 +16,11 @@
 
 package com.acme.kmp.shared
 
+/** Generated with the KMP project wizard. */
 class Greeting {
+    /** Platform, depending on the target application. */
     private val platform = getPlatform()
 
+    /** Just a sample greeting. */
     fun greet(): String = "Hello, ${platform.name}! (version ${ModuleBuildConfig.MODULE_VERSION})"
 }

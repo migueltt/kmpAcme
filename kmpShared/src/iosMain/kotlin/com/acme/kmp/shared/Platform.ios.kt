@@ -18,8 +18,10 @@ package com.acme.kmp.shared
 
 import platform.UIKit.UIDevice
 
-class IOSPlatform : Platform {
+/** iOS platform. */
+object IOSPlatform : Platform() {
     override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
 }
 
-actual fun getPlatform(): Platform = IOSPlatform()
+/** Returns the [IOSPlatform] singleton. */
+actual fun getPlatform(): Platform = IOSPlatform

@@ -16,8 +16,10 @@
 
 package com.acme.kmp.shared
 
-class JsPlatform : Platform {
+/** Web JavaScript platform. */
+object JsPlatform : Platform() {
     override val name: String = "Web with Kotlin/JS"
 }
 
-actual fun getPlatform(): Platform = JsPlatform()
+/** Returns the [JsPlatform] singleton. */
+actual fun getPlatform(): Platform = JsPlatform
