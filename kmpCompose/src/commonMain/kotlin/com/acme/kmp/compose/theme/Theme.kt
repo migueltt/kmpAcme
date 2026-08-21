@@ -3,15 +3,16 @@ package com.acme.kmp.compose.theme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 /** Defines the theme for your app.
  *
- * This is included within [com.acme.kmp.compose.App].
+ * This is included within [com.acme.kmp.compose.AcmeApp].
  *
- * This is `internal` since [App][com.acme.kmp.compose.App] is the only entry point other platforms
+ * This is `internal` since [App][com.acme.kmp.compose.AcmeApp] is the only entry point other platforms
  * should care about.
  * Also, any `@Preview` should only be defined within `kmpCompose` module.
  *
@@ -29,8 +30,9 @@ internal fun AppTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = AppTypography,
-        content = content,
-    )
+    ) {
+        Surface(content = content)
+    }
 }
 
 /** Themes to use.

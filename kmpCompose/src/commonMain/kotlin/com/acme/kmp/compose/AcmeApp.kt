@@ -18,15 +18,20 @@ package com.acme.kmp.compose
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,6 +43,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.AndroidUiModes
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jetbrains.compose.resources.painterResource
 
 import com.acme.kmp.compose.kmpcompose.generated.resources.Res
@@ -50,32 +57,57 @@ import com.acme.kmp.shared.Greeting
 /** Main composable application.
  *
  * @param colorScheme Color scheme. Defaults to either [Theme.darkScheme] or [Theme.lightScheme].
+ * @param viewModel ViewModel.
  */
 @Composable
-fun App(colorScheme: ColorScheme = if (isSystemInDarkTheme()) Theme.darkScheme else Theme.lightScheme) {
+fun AcmeApp(
+    colorScheme: ColorScheme = if (isSystemInDarkTheme()) Theme.darkScheme else Theme.lightScheme,
+    viewModel: AcmeViewModel = viewModel<AcmeViewModel>(factory = AcmeViewModel),
+) {
     AppTheme(colorScheme = colorScheme) {
         // Restore state after recomposition.
-        var showContent by rememberSaveable { mutableStateOf(false) }
+        var showGreeting by rememberSaveable { mutableStateOf(false) }
+        var showApiResults by rememberSaveable { mutableStateOf(false) }
         val greeting = remember { Greeting().greet() }
-        Column(
-            modifier =
-                Modifier
-                    .background(MaterialTheme.colorScheme.primaryContainer)
-                    .safeContentPadding()
-                    .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background,
         ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+            val columnScrollState = rememberScrollState()
+            Column(
+                modifier =
+                    Modifier
+                        .padding(16.dp)
+                        .fillMaxSize()
+                        .verticalScroll(columnScrollState),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Spacer(Modifier.height(32.dp))
+                Button(onClick = { showGreeting = !showGreeting }) {
+                    Text("Click me!")
                 }
+                AnimatedVisibility(showGreeting) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Image(painterResource(Res.drawable.compose_multiplatform), null)
+                        Text("Compose: $greeting")
+                    }
+                }
+                HorizontalDivider(Modifier.padding(vertical = 16.dp))
+                Button(onClick = { showApiResults = !showApiResults }) {
+                    Text("Call API")
+                }
+                AnimatedVisibility(showApiResults) {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        ApiResults(viewModel)
+                    }
+                }
+                Spacer(Modifier.height(32.dp))
             }
         }
     }
@@ -96,8 +128,8 @@ fun App(colorScheme: ColorScheme = if (isSystemInDarkTheme()) Theme.darkScheme e
     uiMode = AndroidUiModes.UI_MODE_NIGHT_NO,
     showSystemUi = true,
 )
-private fun AppPreviewLight() {
-    App()
+private fun AcmeAppPreviewLight() {
+    AcmeApp()
 }
 
 @Composable
@@ -106,8 +138,8 @@ private fun AppPreviewLight() {
     uiMode = AndroidUiModes.UI_MODE_NIGHT_YES,
     showSystemUi = true,
 )
-private fun AppPreviewDark() {
-    App()
+private fun AcmeAppPreviewDark() {
+    AcmeApp()
 }
 
 @Composable
@@ -117,6 +149,6 @@ private fun AppPreviewDark() {
     showSystemUi = true,
     fontScale = 2.0f,
 )
-private fun AppPreviewLargeFont() {
-    App()
+private fun AcmeAppPreviewLargeFont() {
+    AcmeApp()
 }
