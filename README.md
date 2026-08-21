@@ -15,14 +15,20 @@ Related technical articles:
 
 ----
 ### AndroidStudio
-- `Android Studio Quail 3 | 2026.1.3 Build #AI-261.26222.65.2613.15948027` (built on July 27, 2026)
-- Kotlin Multiplatform plugin `261.25134.120-AS`
+- `Android Studio Quail 3 | 2026.1.3 Patch 1 Build #AI-261.26222.65.2613.16025427`  (built on August 6, 2026)
+- Kotlin Multiplatform plugin `261.26222.118-AS`
 - Previews work on `kmpCompose` and `app-android` modules without issues.
 
 ----
 ## Major changes 
 Go back in time through tags for each major change.
 
+* `August 20, 2026 - `[`tag "KMP-2026-08-20-api-call"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-08-06-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-08-20-api-call))
+  - Minor libs and Gradle updates
+  - Includes changes to call API endpoint included in `app-server`
+  - Composable updates to include delay and mode to simulate different states
+  - Introduces simple patterns for ViewModels, API calls, and state evaluation
+  - Includes polymorphic adapters to handle different data types for dynamic JSON payloads
 * `August 06, 2026 - `[`tag "KMP-2026-08-06-gradle"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-08-06-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-08-06-gradle))
   - Gradle update to `9.7.0`
   - Other libraries upgrade 

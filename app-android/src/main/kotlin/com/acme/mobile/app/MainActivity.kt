@@ -30,12 +30,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.AndroidUiModes
 import androidx.compose.ui.tooling.preview.Preview
 
-import com.acme.kmp.compose.App
+import com.acme.kmp.compose.AcmeApp
 import com.acme.kmp.compose.theme.Theme
 
 /** Android entry point of the application.
  *
- * @see App
+ * @see AcmeApp
  */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             // If you only need to support Dark/Light themes, do not include `getColorScheme()`.
-            App()
+            AcmeApp(colorScheme = getColorScheme())
             // Supporting Dynamic Colors invalidates your "organization" theme.
             // App(colorScheme = getColorScheme())
         }
@@ -86,8 +86,8 @@ private fun getColorScheme(): ColorScheme {
     uiMode = AndroidUiModes.UI_MODE_NIGHT_YES,
     showSystemUi = true,
 )
-private fun AppPreviewDark() {
-    App()
+private fun AcmeAppPreviewDark() {
+    AcmeApp()
 }
 
 @Composable
@@ -96,8 +96,8 @@ private fun AppPreviewDark() {
     uiMode = AndroidUiModes.UI_MODE_NIGHT_NO,
     showSystemUi = true,
 )
-private fun AppPreviewLight() {
-    App()
+private fun AcmeAppPreviewLight() {
+    AcmeApp()
 }
 
 @Composable
@@ -107,6 +107,6 @@ private fun AppPreviewLight() {
     showSystemUi = true,
     fontScale = 2.0f,
 )
-private fun AppPreviewLargeFont() {
-    App()
+private fun AcmeAppPreviewLargeFont() {
+    AcmeApp()
 }

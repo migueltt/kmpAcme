@@ -19,12 +19,13 @@ package com.acme.kmp.compose
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
+/** Launches KMP application using a JVM window*/
 fun main() =
     application {
         Window(
             onCloseRequest = ::exitApplication,
             title = "Acme",
         ) {
-            App()
+            AcmeApp()
         }
     }

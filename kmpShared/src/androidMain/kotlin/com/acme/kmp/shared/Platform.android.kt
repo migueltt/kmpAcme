@@ -18,8 +18,13 @@ package com.acme.kmp.shared
 
 import android.os.Build
 
-class AndroidPlatform : Platform {
+/** Android platform. */
+object AndroidPlatform : Platform() {
     override val name: String = "Android ${Build.VERSION.SDK_INT}"
+
+    /** For Android emulators, `localhost` is `10.0.2.2`. */
+    override val apiHost: String = "10.0.2.2"
 }
 
-actual fun getPlatform(): Platform = AndroidPlatform()
+/** Returns the [AndroidPlatform] singleton. */
+actual fun getPlatform(): Platform = AndroidPlatform

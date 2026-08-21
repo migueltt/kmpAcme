@@ -19,9 +19,15 @@ package com.acme.kmp.compose
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
 
+/** Launches KMP application using a browser.
+ * Note that `resources/index.html` points to a generated `kmpCompose.js` file.
+ * ```
+ * <script type="application/javascript" src="kmpCompose.js"></script>
+ * ```
+ */
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
     ComposeViewport {
-        App()
+        AcmeApp()
     }
 }

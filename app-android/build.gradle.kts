@@ -20,6 +20,10 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
+group = "com.acme.mobile.app"
+description = "Acme Android Mobile App"
+version = "0.1.0"
+
 kotlin {
     compilerOptions {
         // Enable all warnings as errors

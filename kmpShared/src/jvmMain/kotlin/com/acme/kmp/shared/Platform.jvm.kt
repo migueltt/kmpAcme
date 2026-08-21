@@ -16,8 +16,10 @@
 
 package com.acme.kmp.shared
 
-class JVMPlatform : Platform {
+/** JVM Platform. */
+object JVMPlatform : Platform() {
     override val name: String = "Java ${System.getProperty("java.version")}"
 }
 
-actual fun getPlatform(): Platform = JVMPlatform()
+/** Returns the [JVMPlatform] singleton. */
+actual fun getPlatform(): Platform = JVMPlatform

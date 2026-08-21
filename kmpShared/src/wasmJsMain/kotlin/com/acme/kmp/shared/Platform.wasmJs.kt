@@ -16,8 +16,10 @@
 
 package com.acme.kmp.shared
 
-class WasmPlatform : Platform {
+/** Web Assembly platform. */
+object WasmPlatform : Platform() {
     override val name: String = "Web with Kotlin/Wasm"
 }
 
-actual fun getPlatform(): Platform = WasmPlatform()
+/** Returns the [WasmPlatform] singleton. */
+actual fun getPlatform(): Platform = WasmPlatform

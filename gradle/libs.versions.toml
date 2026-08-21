@@ -17,8 +17,15 @@
 [versions]
 android-gradle-plugin = "9.3.1"
 kotlin = "2.4.10"
-spotless = "8.9.0"
-dependency-updates = "0.59.0"
+spotless = "8.10.0"
+# Updgrading to `0.61.0` throws several similar exceptions:
+# - org.gradle.api.internal.artifacts.ivyservice.TypedResolveException:
+#    Could not resolve all dependencies for configuration ':kmpCompose:composeHotReloadRuntimeCopy'.;
+#    java.lang.RuntimeException: Problems writing to Binary store in /<user-home>/.gradle/.tmp/gradle9360943505975960346.bin (exist: true);
+#    java.lang.ClassCastException: class org.jetbrains.compose.reload.gradle.HotReloadUsageType cannot be cast to class org.gradle.api.Named
+#       (org.jetbrains.compose.reload.gradle.HotReloadUsageType is in unnamed module of loader org.gradle.internal.classloader.VisitableURLClassLoader$InstrumentingVisitableURLClassLoader @688b2a8e; org.gradle.api.Named is in unnamed module of loader 'app')
+#    'composeHotReloadRuntime' in :kmpCompose
+dependency-updates = "0.60.0"
 
 # Core Libraries
 kotlinx-coroutines = "1.11.0"
@@ -49,7 +56,7 @@ compose-multiplatform-adaptive = "1.3.0-beta02"
 compose-multiplatform-lifecycle = "2.11.0"
 
 ktor = "3.5.2"
-logback = "1.6.1"
+logback = "1.6.3"
 
 junit = "4.13.2"
 

@@ -16,10 +16,22 @@
 
 package com.acme.kmp.shared
 
-interface Platform {
-    val name: String
-    val version: String
-        get() = ModuleBuildConfig.MODULE_VERSION
+/** KMP platform abstraction. */
+abstract class Platform {
+    companion object {
+        /** PoC API endpoint. */
+        const val API_ACME_DATA: String = "/acme/data"
+    }
+
+    /** Platform name. */
+    abstract val name: String
+
+    /** Platform API hostname. */
+    open val apiHost: String = "localhost"
+
+    /** Platform API port. */
+    open val apiPort: Int = 8080
 }
 
+/** Should provide the specific platform implementation. */
 expect fun getPlatform(): Platform
