@@ -18,7 +18,26 @@ package com.acme.kmp.compose
 
 import androidx.compose.ui.window.ComposeUIViewController
 
-/* TODO: based on iOS standards, use `MainViewController`
- *    Create an annotation an include in spotless rules.
+/** Based on iOS standards, `ContentView.swift` is set as:
+ * ```
+ * import UIKit
+ * import SwiftUI
+ * import KmpCompose
+ *
+ * struct ComposeView: UIViewControllerRepresentable {
+ *     func makeUIViewController(context: Context) -> UIViewController {
+ *         MainViewControllerKt.mainViewController()
+ *     }
+ *
+ *     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+ * }
+ *
+ * struct ContentView: View {
+ *     var body: some View {
+ *         ComposeView()
+ *             .ignoresSafeArea()
+ *     }
+ * }
+ * ```
  */
-fun mainViewController() = ComposeUIViewController { App() }
+fun mainViewController() = ComposeUIViewController { AcmeApp() }
