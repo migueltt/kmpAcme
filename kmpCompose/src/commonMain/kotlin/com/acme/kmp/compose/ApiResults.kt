@@ -64,90 +64,180 @@ fun ApiResults(
     modifier: Modifier = Modifier,
 ) {
     val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
-    var delay by rememberSaveable { mutableStateOf(0) }
-    Text(
-        text = "Delay: $delay seconds",
-        fontSize = MaterialTheme.typography.titleLarge.fontSize,
-        modifier = Modifier.align(Alignment.Start),
-    )
-    Slider(
-        value = delay.toFloat(),
-        onValueChange = {
-            delay = it.toInt()
-        },
-        valueRange = 0f..10f,
-        steps = 10,
-    )
-    val apiOptions = AcmeApiResult.entries
-    var apiSelected by rememberSaveable { mutableStateOf(apiOptions[0]) }
-    Text(
-        text = "API result: $apiSelected",
-        fontSize = MaterialTheme.typography.titleLarge.fontSize,
-        modifier = Modifier.align(Alignment.Start),
-    )
-    Column {
-        apiOptions.forEach { apiResult ->
+    var delay by rememberSaveable { mutableStateOf(1) }
+    val apiMode: EnumEntries<AcmeApiModeParam> = AcmeApiModeParam.entries
+    var apiSelected: AcmeApiModeParam by rememberSaveable { mutableStateOf(apiMode[0]) }
+
+    BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
+        val isWide = maxWidth >= 600.dp
+        if (isWide) {
             Row(
-                Modifier
-                    .fillMaxWidth()
-                    .selectable(
-                        selected = (apiResult == apiSelected),
-                        onClick = { apiSelected = apiResult },
-                        role = Role.RadioButton,
-                    ).padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(24.dp),
             ) {
-                RadioButton(
-                    selected = (apiResult == apiSelected),
-                    onClick = null, // Null here because row .selectable handles clicks
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.Start,
+                ) {
+                    ApiSettingsControls(
+                        delay = delay,
+                        onDelayChange = { delay = it },
+                        apiMode = apiMode,
+                        apiSelected = apiSelected,
+                        onApiSelectedChange = { apiSelected = it },
+                        onRequest = {
+                            viewModel.getAcmeData(delay = delay, apiResult = apiSelected).let { }
+                        },
+                    )
+                }
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.Start,
+                ) {
+                    ApiResultsDisplay(uiState = uiState)
+                }
+            }
+        } else {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.Start,
+            ) {
+                ApiSettingsControls(
+                    delay = delay,
+                    onDelayChange = { delay = it },
+                    apiMode = apiMode,
+                    apiSelected = apiSelected,
+                    onApiSelectedChange = { apiSelected = it },
+                    onRequest = {
+                        viewModel.getAcmeData(delay = delay, apiResult = apiSelected).let { }
+                    },
                 )
-                Text(
-                    text = apiResult.label,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = 16.dp),
-                )
+                Spacer(Modifier.height(16.dp))
+                ApiResultsDisplay(uiState = uiState)
             }
         }
     }
-    Button(
-        modifier = Modifier.padding(vertical = 16.dp),
-        onClick = {
-            viewModel.getAcmeData(delay = delay, apiResult = apiSelected)
-        },
-    ) {
-        Text("Send Request")
-    }
-    Text(
-        text = "API Results",
-        fontSize = MaterialTheme.typography.titleLarge.fontSize,
-        modifier = Modifier.align(Alignment.Start),
+}
+
+/** Extension receiver overload for backward compatibility with [ColumnScope]. */
+@Composable
+@Suppress("UnusedReceiverParameter", "UnusedReceiver", "unused")
+fun ColumnScope.ApiResults(
+    viewModel: AcmeViewModel,
+    modifier: Modifier = Modifier,
+) {
+    com.acme.kmp.compose.ApiResults(
+        viewModel = viewModel,
+        modifier = modifier,
     )
-    when (uiState) {
-        StateResult.Empty -> {
-            Text(
-                text = "No data",
-                modifier = Modifier.padding(vertical = 16.dp).align(Alignment.Start),
-                fontFamily = FontFamily.Monospace,
-            )
+}
+
+@Composable
+private fun ApiSettingsControls(
+    delay: Int,
+    onDelayChange: (Int) -> Unit,
+    apiMode: EnumEntries<AcmeApiModeParam>,
+    apiSelected: AcmeApiModeParam,
+    onApiSelectedChange: (AcmeApiModeParam) -> Unit,
+    onRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        Text(
+            text = "Delay: $delay second(s)",
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+        )
+        Slider(
+            value = delay.toFloat(),
+            onValueChange = { onDelayChange(it.toInt()) },
+            valueRange = 0f..10f,
+            steps = 10,
+        )
+        Text(
+            text = "API result: $apiSelected",
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+        )
+        Column {
+            apiMode.forEach { apiResult ->
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .selectable(
+                            selected = (apiResult == apiSelected),
+                            onClick = { onApiSelectedChange(apiResult) },
+                            role = Role.RadioButton,
+                        ).padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    RadioButton(
+                        selected = (apiResult == apiSelected),
+                        onClick = null,
+                    )
+                    Text(
+                        text = apiResult.label,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(start = 16.dp),
+                    )
+                }
+            }
         }
-        StateResult.Processing -> {
-            LinearProgressIndicator(Modifier.fillMaxWidth())
+        Button(
+            modifier = Modifier.padding(vertical = 16.dp),
+            onClick = onRequest,
+        ) {
+            Text("Send Request")
         }
-        is StateResult.Failure -> {
-            val textScrollState = rememberScrollState()
-            Text(
-                text = "${uiState.data.toPrettyString()}\n${uiState.error.toPrettyString()}",
-                modifier = Modifier.padding(vertical = 16.dp).align(Alignment.Start).horizontalScroll(textScrollState),
-                fontFamily = FontFamily.Monospace,
-            )
-        }
-        is StateResult.Success -> {
-            val textScrollState = rememberScrollState()
-            Text(
-                text = uiState.data.toPrettyString(),
-                modifier = Modifier.padding(vertical = 16.dp).align(Alignment.Start).horizontalScroll(textScrollState),
-                fontFamily = FontFamily.Monospace,
-            )
+    }
+}
+
+@Composable
+private fun ApiResultsDisplay(
+    uiState: StateResult<AcmeData, AcmeError>,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
+        Text(
+            text = "API Results",
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
+        )
+        when (uiState) {
+            StateResult.Empty -> {
+                Text(
+                    text = "No data",
+                    modifier = Modifier.padding(vertical = 16.dp),
+                    fontFamily = FontFamily.Monospace,
+                )
+            }
+            StateResult.Processing -> {
+                LinearProgressIndicator(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp),
+                )
+            }
+            is StateResult.Failure -> {
+                val textScrollState = rememberScrollState()
+                Text(
+                    text = "${uiState.data.toPrettyString()}\n${uiState.error.toPrettyString()}",
+                    modifier =
+                        Modifier
+                            .padding(vertical = 16.dp)
+                            .horizontalScroll(textScrollState),
+                    fontFamily = FontFamily.Monospace,
+                )
+            }
+            is StateResult.Success -> {
+                val textScrollState = rememberScrollState()
+                Text(
+                    text = uiState.data.toPrettyString(),
+                    modifier =
+                        Modifier
+                            .padding(vertical = 16.dp)
+                            .horizontalScroll(textScrollState),
+                    fontFamily = FontFamily.Monospace,
+                )
+            }
         }
     }
 }

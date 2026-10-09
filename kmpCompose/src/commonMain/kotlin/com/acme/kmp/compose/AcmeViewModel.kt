@@ -58,10 +58,6 @@ class AcmeViewModel : UiStateViewModel<AcmeData, AcmeError>(initial = StateResul
                 .getAcmeData(
                     delay = delay,
                     apiResult = apiResult,
-                ).also {
-                    if (it is StateResult.Success) {
-                        println("ktor -> module: ${it.data.module}")
-                    }
-                }
+                )
         }
 }
