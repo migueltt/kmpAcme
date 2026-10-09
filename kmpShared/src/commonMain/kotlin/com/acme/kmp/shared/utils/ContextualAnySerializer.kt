@@ -45,7 +45,7 @@ import kotlinx.serialization.serializer
  * val json = Json {
  *     serializersModule = SerializersModule {
  *         @Suppress("UNCHECKED_CAST")
- *         contextual(Any::class, ContextualAnySerializer as KSerializer<Any>)
+ *         contextual(Any::class, ContextualAnySerializer as KSerializer<Any?>)
  *         // Casting required to support `Any?`
  *     }
  * }
@@ -139,7 +139,8 @@ class ContextualAnySerializer(
         }
 
     /** Decodes JSON recursively.
-     * If a class is found, checks for contextual serializers, or, the related [`<class>.serializer()`][serializer].
+     * If a class is found, checks for contextual serializers, or, the related
+     * [`<class>.serializer()`][serializer].
      */
     @OptIn(ExperimentalSerializationApi::class)
     private fun JsonElement.decode(decoder: JsonDecoder): Any? =

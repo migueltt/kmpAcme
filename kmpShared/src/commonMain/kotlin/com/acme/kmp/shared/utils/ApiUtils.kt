@@ -88,7 +88,6 @@ fun Any?.toPrettyString(indentWidth: Int = 2): String {
     val sb = StringBuilder()
     var indentLevel = 0
     val indent = " ".repeat(indentWidth)
-
     var i = 0
     while (i < toString.length) {
         when (val char = toString[i]) {
