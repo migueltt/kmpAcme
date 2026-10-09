@@ -41,7 +41,7 @@ import kotlinx.serialization.json.JsonPrimitive
 import com.acme.kmp.shared.Platform
 import com.acme.kmp.shared.api.ACME_DISCRIMINATOR
 import com.acme.kmp.shared.api.ACME_SERIALIZERS
-import com.acme.kmp.shared.api.AcmeApiResult
+import com.acme.kmp.shared.api.AcmeApiModeParam
 import com.acme.kmp.shared.api.AcmeData
 import com.acme.kmp.shared.api.AcmeError
 import com.acme.kmp.shared.api.ModuleInfo
@@ -86,15 +86,17 @@ fun Application.module() {
         // GET /acme/data demo endpoint.
         get(Platform.API_ACME_DATA) {
             call.request.queryParameters["delay"]?.toIntOrNull()?.let {
+                println("Delaying response by $it seconds...")
                 delay(it.seconds)
             }
+            println("Processing response")
             val mode =
                 call.request.queryParameters["mode"].let { mode ->
                     when (mode) {
-                        null -> AcmeApiResult.Unknown
+                        null -> AcmeApiModeParam.Unknown
                         else ->
                             try {
-                                AcmeApiResult.valueOf(mode)
+                                AcmeApiModeParam.valueOf(mode)
                             } catch (_: IllegalArgumentException) {
                                 // Invalid "mode" parameter.
                                 call.respond(
@@ -110,7 +112,7 @@ fun Application.module() {
                     }
                 }
             when (mode) {
-                AcmeApiResult.Success ->
+                AcmeApiModeParam.Success ->
                     // Send back success
                     call.respond(
                         AcmeData(
@@ -129,10 +131,10 @@ fun Application.module() {
                             anyMap = createAnyMap(),
                         ),
                     )
-                AcmeApiResult.NoData ->
+                AcmeApiModeParam.NoData ->
                     // 204 No content
                     call.respond(HttpStatusCode.NoContent)
-                AcmeApiResult.RequestFailure ->
+                AcmeApiModeParam.RequestFailure ->
                     // 400 Bad request with a standard error response body
                     call.respond(
                         status = HttpStatusCode.BadRequest,
@@ -142,7 +144,7 @@ fun Application.module() {
                                 message = "Bad Request",
                             ),
                     )
-                AcmeApiResult.ServerFailure ->
+                AcmeApiModeParam.ServerFailure ->
                     // 500 Internal Server Error with a standard error response body
                     call.respond(
                         status = HttpStatusCode.InternalServerError,
@@ -152,7 +154,7 @@ fun Application.module() {
                                 message = "Internal Server Error",
                             ),
                     )
-                AcmeApiResult.Unknown ->
+                AcmeApiModeParam.Unknown ->
                     // 500 Internal Server Error but with an invalid response body payload
                     call.respond(
                         status = HttpStatusCode.InternalServerError,
@@ -185,9 +187,12 @@ private fun createAnyList(): List<Any> =
         add(123.45)
         add(999)
         add(true)
+        // Since it implements Serializable, it will use the 'serializer'.
         add(Pair("key1", "value1"))
+        // kotlinx.datetime classes register their serializers.
         add(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()))
         add(
+            // Since it implements Serializable, it will use the 'serializer'.
             AcmeData(
                 platform = getPlatform().name,
                 timestamp = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
@@ -201,13 +206,16 @@ private fun createAnyList(): List<Any> =
             ),
         )
         add(
+            // Since it implements Serializable, it will use the 'serializer'.
             AcmeError(
                 code = 1,
                 message = "Test error",
             ),
         )
         add(
-            // Raw JSON but includes `clazz=ModuleInfo`. Thus, it will be deserialized as data class `ModuleInfo`.
+            // Raw JSON but includes `clazz=ModuleInfo`.
+            // Thus, it will be serialized as a JsonObject,
+            // but deserialized as data class `ModuleInfo` on the client.
             JsonObject(
                 mapOf(
                     "clazz" to JsonPrimitive("ModuleInfo"),
@@ -219,7 +227,7 @@ private fun createAnyList(): List<Any> =
             ),
         )
         add(
-            // Since its serializer is not registered, it will be deserialized as a map.
+            // Since it implements Serializable, it will use the 'serializer'.
             TestData(
                 integer = 123,
                 text = "String value in list",
@@ -241,8 +249,10 @@ private fun createAnyMap(): Map<String, Any> =
         this["integer"] = 999
         this["boolean"] = true
         this["pair"] = Pair("key1", "value1")
+        // kotlinx.datetime classes register their serializers.
         this["timestamp"] = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         this["acmeData"] =
+            // Since it implements Serializable, it will use the 'serializer'.
             AcmeData(
                 platform = getPlatform().name,
                 timestamp = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
@@ -255,11 +265,15 @@ private fun createAnyMap(): Map<String, Any> =
                     ),
             )
         this["acmeError"] =
+            // Since it implements Serializable, it will use the 'serializer'.
             AcmeError(
                 code = 1,
                 message = "Test error",
             )
         this["test-module-info"] =
+            // Raw JSON but includes `clazz=ModuleInfo`.
+            // Thus, it will be serialized as a JsonObject,
+            // but deserialized as data class `ModuleInfo` on the client.
             JsonObject(
                 mapOf(
                     "clazz" to JsonPrimitive("ModuleInfo"),
@@ -270,7 +284,7 @@ private fun createAnyMap(): Map<String, Any> =
                 ),
             )
         this["testData"] =
-            // Since its serializer is not registered, it will be deserialized as a map.
+            // Since it implements Serializable, it will use the 'serializer'.
             TestData(
                 integer = 9909,
                 text = "String value in map",
