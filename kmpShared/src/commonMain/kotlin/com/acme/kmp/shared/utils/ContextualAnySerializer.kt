@@ -118,9 +118,6 @@ class ContextualAnySerializer(
         when (this) {
             null -> JsonNull
             is JsonElement -> this
-            is Boolean -> JsonPrimitive(this)
-            is Number -> JsonPrimitive(this)
-            is String -> JsonPrimitive(this)
             is Pair<*, *> -> JsonObject(mapOf(first.toString() to second.encode(encoder)))
             is Iterable<*> -> JsonArray(map { it.encode(encoder) })
             is Array<*> -> JsonArray(map { it.encode(encoder) })
@@ -163,7 +160,5 @@ class ContextualAnySerializer(
                     k to v.decode(decoder)
                 }
             }
-        }.also {
-            println("ktor -> json decoding: $it - ${if (it != null) it::class else "null"}")
         }
 }

@@ -19,7 +19,7 @@ package com.acme.kmp.shared.api
 /** Should be used by UI composables to display which result is expected.
  * The enum itself should be passed as a query parameter.
  */
-enum class AcmeApiResult(
+enum class AcmeApiModeParam(
     val label: String,
 ) {
     /** Selector to trigger a 200 OK response. */

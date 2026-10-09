@@ -53,7 +53,7 @@ data class AcmeData(
     @SerialName("module")
     val module: ModuleInfo,
     @SerialName("any_list")
-    val anyList: List<@Contextual Any> = emptyList(),
+    val anyList: List<@Contextual Any?> = emptyList(),
     @SerialName("any_map")
-    val anyMap: Map<String, @Contextual Any> = emptyMap(),
+    val anyMap: Map<String, @Contextual Any?> = emptyMap(),
 )
