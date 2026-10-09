@@ -24,7 +24,7 @@ import kotlinx.coroutines.Job
 
 import com.acme.kmp.compose.utils.UiStateViewModel
 import com.acme.kmp.shared.api.AcmeApiClient
-import com.acme.kmp.shared.api.AcmeApiResult
+import com.acme.kmp.shared.api.AcmeApiModeParam
 import com.acme.kmp.shared.api.AcmeData
 import com.acme.kmp.shared.api.AcmeError
 import com.acme.kmp.shared.utils.StateResult
@@ -51,7 +51,7 @@ class AcmeViewModel : UiStateViewModel<AcmeData, AcmeError>(initial = StateResul
      */
     fun getAcmeData(
         delay: Int,
-        apiResult: AcmeApiResult,
+        apiResult: AcmeApiModeParam,
     ): Job =
         emitState {
             AcmeApiClient

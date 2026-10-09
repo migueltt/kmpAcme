@@ -19,7 +19,10 @@ package com.acme.kmp.compose
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,7 +32,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ColorScheme
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -42,6 +45,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.AndroidUiModes
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -54,7 +58,7 @@ import com.acme.kmp.compose.theme.AppTheme
 import com.acme.kmp.compose.theme.Theme
 import com.acme.kmp.shared.Greeting
 
-/** Main composable application.
+/** Main composable application with adaptive layout support.
  *
  * @param colorScheme Color scheme. Defaults to either [Theme.darkScheme] or [Theme.lightScheme].
  * @param viewModel ViewModel.
@@ -73,41 +77,134 @@ fun AcmeApp(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background,
         ) {
-            val columnScrollState = rememberScrollState()
+            BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+                val isWideScreen = maxWidth >= 800.dp
+                val scrollState = rememberScrollState()
+
+                if (isWideScreen) {
+                    // Wide / Multi-pane layout for tablets, desktop, foldables
+                    Row(
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .padding(24.dp)
+                                .verticalScroll(scrollState),
+                        horizontalArrangement = Arrangement.spacedBy(24.dp),
+                    ) {
+                        ElevatedCard(
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth(),
+                        ) {
+                            GreetingSection(
+                                showGreeting = showGreeting,
+                                onToggleGreeting = { showGreeting = !showGreeting },
+                                greeting = greeting,
+                            )
+                        }
+
+                        ElevatedCard(
+                            modifier =
+                                Modifier
+                                    .weight(1f)
+                                    .fillMaxWidth(),
+                        ) {
+                            ApiResultsSection(
+                                showApiResults = showApiResults,
+                                onToggleApiResults = { showApiResults = !showApiResults },
+                                viewModel = viewModel,
+                            )
+                        }
+                    }
+                } else {
+                    // Single column layout for compact screens (e.g. portrait phones)
+                    Column(
+                        modifier =
+                            Modifier
+                                .fillMaxSize()
+                                .padding(16.dp)
+                                .verticalScroll(scrollState),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
+                    ) {
+                        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+                            GreetingSection(
+                                showGreeting = showGreeting,
+                                onToggleGreeting = { showGreeting = !showGreeting },
+                                greeting = greeting,
+                            )
+                        }
+
+                        // HorizontalDivider(Modifier.padding(vertical = 16.dp))
+
+                        ElevatedCard(modifier = Modifier.fillMaxWidth()) {
+                            ApiResultsSection(
+                                showApiResults = showApiResults,
+                                onToggleApiResults = { showApiResults = !showApiResults },
+                                viewModel = viewModel,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun GreetingSection(
+    showGreeting: Boolean,
+    onToggleGreeting: () -> Unit,
+    greeting: String,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Button(onClick = onToggleGreeting) {
+            Text(if (showGreeting) "Hide Greeting" else "Click me!")
+        }
+        AnimatedVisibility(showGreeting) {
             Column(
-                modifier =
-                    Modifier
-                        .padding(16.dp)
-                        .fillMaxSize()
-                        .verticalScroll(columnScrollState),
+                modifier = Modifier.fillMaxWidth(fraction = 0.6f).padding(top = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(Modifier.height(32.dp))
-                Button(onClick = { showGreeting = !showGreeting }) {
-                    Text("Click me!")
-                }
-                AnimatedVisibility(showGreeting) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Image(painterResource(Res.drawable.compose_multiplatform), null)
-                        Text("Compose: $greeting")
-                    }
-                }
-                HorizontalDivider(Modifier.padding(vertical = 16.dp))
-                Button(onClick = { showApiResults = !showApiResults }) {
-                    Text("Call API")
-                }
-                AnimatedVisibility(showApiResults) {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        ApiResults(viewModel)
-                    }
-                }
-                Spacer(Modifier.height(32.dp))
+                Image(painterResource(Res.drawable.compose_multiplatform), null)
+                Spacer(Modifier.height(8.dp))
+                Text("Compose: $greeting")
+            }
+        }
+    }
+}
+
+@Composable
+private fun ApiResultsSection(
+    showApiResults: Boolean,
+    onToggleApiResults: () -> Unit,
+    viewModel: AcmeViewModel,
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier =
+            modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Button(onClick = onToggleApiResults) {
+            Text(if (showApiResults) "Hide API Options" else "Call API")
+        }
+        AnimatedVisibility(showApiResults) {
+            Column(
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                ApiResults(viewModel)
             }
         }
     }
@@ -150,5 +247,45 @@ private fun AcmeAppPreviewDark() {
     fontScale = 2.0f,
 )
 private fun AcmeAppPreviewLargeFont() {
+    AcmeApp()
+}
+
+@Composable
+@Preview(
+    name = "Phone",
+    device = Devices.PHONE,
+    showBackground = true,
+)
+private fun AcmeAppPreviewPhone() {
+    AcmeApp()
+}
+
+@Composable
+@Preview(
+    name = "Foldable",
+    device = Devices.FOLDABLE,
+    showBackground = true,
+)
+private fun AcmeAppPreviewFoldable() {
+    AcmeApp()
+}
+
+@Composable
+@Preview(
+    name = "Tablet",
+    device = Devices.TABLET,
+    showBackground = true,
+)
+private fun AcmeAppPreviewTablet() {
+    AcmeApp()
+}
+
+@Composable
+@Preview(
+    name = "Desktop",
+    device = Devices.DESKTOP,
+    showBackground = true,
+)
+private fun AcmeAppPreviewDesktop() {
     AcmeApp()
 }
