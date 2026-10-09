@@ -74,14 +74,6 @@ kotlin {
         commonMain.dependencies {
             api(libs.bundles.kotlinx.core)
             implementation(libs.bundles.ktor.client)
-            // TODO: Bug in IntelliJ/AndroidStudio?
-            // Module `:app-server` compiles/runs OK, but IDE shows:
-            // Cannot access 'Pipeline' which is a supertype of 'Application'. Check your module classpath for missing or conflicting dependencies
-            api(libs.ktor.utils)
-            // Module `:app-server` compiles/runs OK, but IDE cannot resolve references to `Json`:
-            api(libs.kotlinx.serialization.json)
-            // Module `:app-server` compiles/runs OK, but IDE cannot resolve references to `Json`:
-            api(libs.ktor.serialization.kotlinx.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

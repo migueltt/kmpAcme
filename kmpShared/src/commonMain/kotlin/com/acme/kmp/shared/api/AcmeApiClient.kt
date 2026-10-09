@@ -49,7 +49,7 @@ object AcmeApiClient : ApiClient(
      */
     suspend fun getAcmeData(
         delay: Int,
-        apiResult: AcmeApiResult,
+        apiResult: AcmeApiModeParam,
     ): StateResult<AcmeData, AcmeError> =
         callApi(defaultOnError = defaultOnError) {
             get(Platform.API_ACME_DATA) {

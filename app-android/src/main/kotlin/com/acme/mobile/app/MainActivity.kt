@@ -16,6 +16,7 @@
 
 package com.acme.mobile.app
 
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -29,6 +30,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.AndroidUiModes
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
 import com.acme.kmp.compose.AcmeApp
 import com.acme.kmp.compose.theme.Theme
@@ -40,10 +43,21 @@ import com.acme.kmp.compose.theme.Theme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
+        // API 37+ requires this permission granted explicitly
+        if (ContextCompat.checkSelfPermission(this, "android.permission.ACCESS_LOCAL_NETWORK")
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf("android.permission.ACCESS_LOCAL_NETWORK"),
+                101,
+            )
+        }
         super.onCreate(savedInstanceState)
         setContent {
             // If you only need to support Dark/Light themes, do not include `getColorScheme()`.
-            AcmeApp(colorScheme = getColorScheme())
+            // AcmeApp(colorScheme = getColorScheme())
+            AcmeApp()
             // Supporting Dynamic Colors invalidates your "organization" theme.
             // App(colorScheme = getColorScheme())
         }

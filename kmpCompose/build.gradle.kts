@@ -58,6 +58,8 @@ kotlin {
             enable = true
         }
     }
+    // If iOS cannot import 'import KmpCompose' in 'ContentView.swift'
+    // val xcFramework = XCFramework("KmpCompose")
     listOf(
         iosArm64(),
         iosSimulatorArm64(),
@@ -65,6 +67,8 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "KmpCompose"
             isStatic = true
+            // If iOS cannot import 'import KmpCompose' in 'ContentView.swift'
+            // xcFramework.add(this)
         }
     }
 

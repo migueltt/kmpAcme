@@ -18,6 +18,7 @@ package com.acme.kmp.shared.utils
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.ResponseException
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -41,10 +42,17 @@ abstract class ApiClient(
     val port: Int,
     val json: Json,
 ) {
-    /** HTTP client to use for API requests. */
+    /** HTTP client to use for API requests.
+     * Includes a `requestTimeoutMillis` to force an error if the `delay` is more than 9 seconds.
+     */
     protected val httpClient by lazy {
         // WARNING: Do not specify engine - each platform will be assigned accordingly.
         HttpClient {
+            install(HttpTimeout) {
+                // kmpCompose defines up to 10s as the delay for the mock app-server.
+                // Setting this to 9s allows the app to fail fast.
+                requestTimeoutMillis = 9_000
+            }
             install(ContentNegotiation) {
                 json(json)
             }

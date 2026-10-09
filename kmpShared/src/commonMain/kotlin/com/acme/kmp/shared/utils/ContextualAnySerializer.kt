@@ -45,7 +45,7 @@ import kotlinx.serialization.serializer
  * val json = Json {
  *     serializersModule = SerializersModule {
  *         @Suppress("UNCHECKED_CAST")
- *         contextual(Any::class, ContextualAnySerializer as KSerializer<Any>)
+ *         contextual(Any::class, ContextualAnySerializer as KSerializer<Any?>)
  *         // Casting required to support `Any?`
  *     }
  * }
@@ -118,9 +118,6 @@ class ContextualAnySerializer(
         when (this) {
             null -> JsonNull
             is JsonElement -> this
-            is Boolean -> JsonPrimitive(this)
-            is Number -> JsonPrimitive(this)
-            is String -> JsonPrimitive(this)
             is Pair<*, *> -> JsonObject(mapOf(first.toString() to second.encode(encoder)))
             is Iterable<*> -> JsonArray(map { it.encode(encoder) })
             is Array<*> -> JsonArray(map { it.encode(encoder) })
@@ -142,7 +139,8 @@ class ContextualAnySerializer(
         }
 
     /** Decodes JSON recursively.
-     * If a class is found, checks for contextual serializers, or, the related [`<class>.serializer()`][serializer].
+     * If a class is found, checks for contextual serializers, or, the related
+     * [`<class>.serializer()`][serializer].
      */
     @OptIn(ExperimentalSerializationApi::class)
     private fun JsonElement.decode(decoder: JsonDecoder): Any? =
@@ -163,7 +161,5 @@ class ContextualAnySerializer(
                     k to v.decode(decoder)
                 }
             }
-        }.also {
-            println("ktor -> json decoding: $it - ${if (it != null) it::class else "null"}")
         }
 }

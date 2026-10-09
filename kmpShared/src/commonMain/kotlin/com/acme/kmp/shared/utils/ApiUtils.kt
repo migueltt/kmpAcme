@@ -75,7 +75,11 @@ fun createJsonParser(
     }
 
 /** Prettifies [Any] object into a `String`.
- * Similar to other JSON prettify functions.
+ *
+ * Note that this relies on the default `toString` implementation and then scans
+ * throughout the string to add indentation.
+ * The resulting format may not be accurate if there are string values that include characters
+ * like `(,[,{,},],)` and even commas.
  *
  * @param indentWidth Indentation width.
  */
@@ -84,12 +88,21 @@ fun Any?.toPrettyString(indentWidth: Int = 2): String {
     val sb = StringBuilder()
     var indentLevel = 0
     val indent = " ".repeat(indentWidth)
-
     var i = 0
     while (i < toString.length) {
         when (val char = toString[i]) {
-            '(', '[', '{' -> {
-                sb.append(char).append("\n")
+            '(' -> {
+                sb.append("<class>").append(char).append("\n")
+                indentLevel++
+                sb.append(indent.repeat(indentLevel))
+            }
+            '[' -> {
+                sb.append("<array>").append(char).append("\n")
+                indentLevel++
+                sb.append(indent.repeat(indentLevel))
+            }
+            '{' -> {
+                sb.append("<map>").append(char).append("\n")
                 indentLevel++
                 sb.append(indent.repeat(indentLevel))
             }

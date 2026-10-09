@@ -15,23 +15,16 @@
 #
 # ======================================================================================================================
 [versions]
-android-gradle-plugin = "9.3.1"
-kotlin = "2.4.10"
-spotless = "8.10.0"
-# Updgrading to `0.61.0` throws several similar exceptions:
-# - org.gradle.api.internal.artifacts.ivyservice.TypedResolveException:
-#    Could not resolve all dependencies for configuration ':kmpCompose:composeHotReloadRuntimeCopy'.;
-#    java.lang.RuntimeException: Problems writing to Binary store in /<user-home>/.gradle/.tmp/gradle9360943505975960346.bin (exist: true);
-#    java.lang.ClassCastException: class org.jetbrains.compose.reload.gradle.HotReloadUsageType cannot be cast to class org.gradle.api.Named
-#       (org.jetbrains.compose.reload.gradle.HotReloadUsageType is in unnamed module of loader org.gradle.internal.classloader.VisitableURLClassLoader$InstrumentingVisitableURLClassLoader @688b2a8e; org.gradle.api.Named is in unnamed module of loader 'app')
-#    'composeHotReloadRuntime' in :kmpCompose
-dependency-updates = "0.60.0"
+android-gradle-plugin = "9.4.1"
+kotlin = "2.4.20"
+spotless = "8.10.3"
+dependency-updates = "0.65.0"
 
 # Core Libraries
 kotlinx-coroutines = "1.11.0"
 kotlinx-datetime = "0.8.0"
 kotlinx-serialization = "1.11.0"
-kotlinx-collections-immutable = "0.5.1"
+kotlinx-collections-immutable = "0.5.2"
 
 androidSdkCompile = "37"
 androidSdkMin = "24"
@@ -42,7 +35,7 @@ androidx-espresso = "3.7.0"
 androidx-testExt = "1.3.0"
 
 # KMP Compose
-compose-multiplatform = "1.11.1"
+compose-multiplatform = "1.12.1"
 compose-hot-reload = "1.2.0"
 compose-material3 = "1.9.0"
 compose-material-icons-extended = "1.7.3"
@@ -51,12 +44,12 @@ compose-lifecycle = "2.11.0"
 # Old nav
 # compose-navigation = "2.9.1"
 # KMP navigation3
-compose-multiplatform-navigation = "1.1.1"
-compose-multiplatform-adaptive = "1.3.0-beta02"
+compose-multiplatform-navigation = "1.1.2"
+compose-multiplatform-adaptive = "1.3.0"
 compose-multiplatform-lifecycle = "2.11.0"
 
-ktor = "3.5.2"
-logback = "1.6.3"
+ktor = "3.6.0"
+logback = "1.6.5"
 
 junit = "4.13.2"
 
@@ -147,6 +140,7 @@ kotlinx-core = [
     "kotlinx-coroutines-core",
     "kotlinx-datetime",
     "kotlinx-serialization-core",
+    "kotlinx-serialization-json",
     "kotlinx-collections-immutable",
 ]
 
