@@ -15,15 +15,19 @@ Related technical articles:
 
 ----
 ### AndroidStudio
-- `Android Studio Quail 3 | 2026.1.3 Patch 1 Build #AI-261.26222.65.2613.16025427`  (built on August 6, 2026)
-- Kotlin Multiplatform plugin `261.26222.118-AS`
+- `Android Studio Rabbit 1 | 2026.2.1 Build #AI-262.9437.185.2621.16467767` (built on September 29, 2026)
+- Kotlin Multiplatform plugin `262.9437.133-AS`
 - Previews work on `kmpCompose` and `app-android` modules without issues.
 
 ----
 ## Major changes 
 Go back in time through tags for each major change.
 
-* `August 20, 2026 - `[`tag "KMP-2026-08-20-api-call"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-08-06-gradle) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-08-20-api-call))
+* `October 08, 2026 - `[`tag "KMP-2026-10-08-api-updates"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-10-08-api-updates) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-10-08-api-updates))
+  - Minor libs and Gradle updates
+  - Refactoring and improvements to API calls
+  - Cleaning up some functions
+* `August 20, 2026 - `[`tag "KMP-2026-08-20-api-call"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-08-06-api-call) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-08-20-api-call))
   - Minor libs and Gradle updates
   - Includes changes to call API endpoint included in `app-server`
   - Composable updates to include delay and mode to simulate different states
