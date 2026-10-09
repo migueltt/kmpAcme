@@ -27,7 +27,7 @@ Go back in time through tags for each major change.
   - Minor libs and Gradle updates
   - Refactoring and improvements to API calls
   - Cleaning up some functions
-* `August 20, 2026 - `[`tag "KMP-2026-08-20-api-call"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-08-06-api-call) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-08-20-api-call))
+* `August 20, 2026 - `[`tag "KMP-2026-08-20-api-call"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-08-20-api-call) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-08-20-api-call))
   - Minor libs and Gradle updates
   - Includes changes to call API endpoint included in `app-server`
   - Composable updates to include delay and mode to simulate different states
