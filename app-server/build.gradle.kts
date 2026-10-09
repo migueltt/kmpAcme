@@ -37,7 +37,6 @@ kotlin {
     sourceSets {
         dependencies {
             implementation(projects.kmpShared)
-            implementation(libs.bundles.kotlinx.core)
             implementation(libs.bundles.ktor.server)
             testImplementation(libs.bundles.ktor.server.test)
         }
