@@ -14,15 +14,17 @@
  *    limitations under the License.
  */
 
-package com.acme.kmp.compose
+package com.acme.web
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
 
+import com.acme.kmp.compose.AcmeApp
+
 /** Launches KMP application using a browser.
  * Note that `resources/index.html` points to a generated `kmpCompose.js` file.
  * ```
- * <script type="application/javascript" src="kmpCompose.js"></script>
+ * <script type="application/javascript" src="webApp.js"></script>
  * ```
  */
 @OptIn(ExperimentalComposeUiApi::class)
