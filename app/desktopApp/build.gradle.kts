@@ -1,5 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 /*
  *    Copyright 2026 migueltt and/or Contributors
  *
@@ -16,10 +14,13 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
  *    limitations under the License.
  */
 
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.compose.hot.reload)
 }
 
 group = "com.acme.desktop"
