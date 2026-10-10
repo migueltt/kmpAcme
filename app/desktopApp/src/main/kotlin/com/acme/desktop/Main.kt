@@ -14,17 +14,19 @@
  *    limitations under the License.
  */
 
-package com.acme.kmp.compose
+package com.acme.desktop
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
-/** Launches KMP application using a JVM window*/
+import com.acme.kmp.compose.AcmeApp
+
+/** Launches KMP application using a JVM window. */
 fun main() =
     application {
         Window(
             onCloseRequest = ::exitApplication,
-            title = "Acme",
+            title = "${ModuleBuildConfig.MODULE_NAME} (${com.acme.kmp.compose.ModuleBuildConfig.MODULE_VERSION})",
         ) {
             AcmeApp()
         }
