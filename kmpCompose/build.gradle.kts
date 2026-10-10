@@ -98,8 +98,8 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutines.swing)
+            api(compose.desktop.currentOs)
+            api(libs.kotlinx.coroutines.swing)
         }
     }
 }
@@ -107,17 +107,4 @@ kotlin {
 dependencies {
     // This is required for AndroidStudio built-in Preview for components under `commonMain`.
     "androidRuntimeClasspath"(libs.compose.ui.tooling)
-}
-
-compose {
-    desktop {
-        application {
-            mainClass = "com.acme.kmp.compose.MainKt"
-            nativeDistributions {
-                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-                packageName = "com.acme.app"
-                packageVersion = "1.0.0"
-            }
-        }
-    }
 }

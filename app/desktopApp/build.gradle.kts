@@ -29,8 +29,6 @@ version = "0.1.0"
 dependencies {
     implementation(project(":kmpCompose"))
     implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.kotlinx.coroutines.swing)
-    implementation(compose.desktop.currentOs)
 }
 
 compose.desktop {
