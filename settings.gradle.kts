@@ -65,6 +65,6 @@ plugins {
 include(":app:androidApp")
 include(":app:desktopApp")
 include(":app:webApp")
-include(":app:serverApp")
+include(":kmpServerApp")
 include(":kmpCompose")
 include(":kmpShared")
