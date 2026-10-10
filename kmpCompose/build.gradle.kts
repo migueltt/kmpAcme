@@ -14,7 +14,6 @@
  *    limitations under the License.
  */
 
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -23,8 +22,6 @@ plugins {
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose.hot.reload)
-    alias(libs.plugins.kotlinx.serialization)
 }
 
 group = "com.acme.kmp.compose"
@@ -57,6 +54,9 @@ kotlin {
         androidResources {
             enable = true
         }
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
     }
     // If iOS cannot import 'import KmpCompose' in 'ContentView.swift'
     // val xcFramework = XCFramework("KmpCompose")
@@ -65,6 +65,7 @@ kotlin {
         iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
+            // Required since the module is 'kmpCompose'
             baseName = "KmpCompose"
             isStatic = true
             // If iOS cannot import 'import KmpCompose' in 'ContentView.swift'
@@ -76,13 +77,11 @@ kotlin {
 
     js {
         browser()
-        binaries.executable()
     }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
-        binaries.executable()
     }
 
     sourceSets {
@@ -98,8 +97,8 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutines.swing)
+            api(compose.desktop.currentOs)
+            api(libs.kotlinx.coroutines.swing)
         }
     }
 }
@@ -107,17 +106,4 @@ kotlin {
 dependencies {
     // This is required for AndroidStudio built-in Preview for components under `commonMain`.
     "androidRuntimeClasspath"(libs.compose.ui.tooling)
-}
-
-compose {
-    desktop {
-        application {
-            mainClass = "com.acme.kmp.compose.MainKt"
-            nativeDistributions {
-                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-                packageName = "com.acme.app"
-                packageVersion = "1.0.0"
-            }
-        }
-    }
 }

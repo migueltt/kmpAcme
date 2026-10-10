@@ -14,18 +14,34 @@
  *    limitations under the License.
  */
 
-package com.acme.kmp.compose
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.application
+plugins {
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.compiler)
+}
 
-/** Launches KMP application using a JVM window*/
-fun main() =
-    application {
-        Window(
-            onCloseRequest = ::exitApplication,
-            title = "Acme",
-        ) {
-            AcmeApp()
+group = "com.acme.web"
+description = "Acme Web App"
+version = "0.1.0"
+
+kotlin {
+    js {
+        browser()
+        binaries.executable()
+    }
+
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(project(":kmpCompose"))
+            implementation(libs.compose.ui)
         }
     }
+}
