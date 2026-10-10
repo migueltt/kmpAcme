@@ -62,7 +62,8 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-include(":app-android")
+include(":app:androidApp")
+include(":app:desktopApp")
 include(":app-server")
 include(":kmpCompose")
 include(":kmpShared")
