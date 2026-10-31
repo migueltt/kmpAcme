@@ -11,7 +11,8 @@ using Kotlin Multiplatform and Compose Multiplatform:
 Related technical articles:
 1. [Kotlin Multiplatform Setup](https://medium.com/dynamic-content/kotlin-multiplatform-setup-84cdcc4d6341)
    _(which references this repository)_
-2. _More to come in the future..._
+2. [Kotlin Multipaltform Setup (2) - API calls](https://medium.com/dynamic-content/kotlin-multiplatform-setup-2-api-calls-f7fb6d07f399)
+3. _More to come in the future..._
 
 ----
 ### AndroidStudio
