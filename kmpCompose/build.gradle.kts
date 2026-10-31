@@ -97,8 +97,6 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         jvmMain.dependencies {
-            api(compose.desktop.currentOs)
-            api(libs.kotlinx.coroutines.swing)
         }
     }
 }
