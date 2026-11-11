@@ -85,8 +85,6 @@ kotlin {
     }
 
     sourceSets {
-        androidMain.dependencies {
-        }
         commonMain.dependencies {
             implementation(projects.kmpShared)
             implementation(libs.bundles.compose.multiplatform)
@@ -96,7 +94,17 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        androidMain.dependencies {
+            // Specific for Android
+        }
         jvmMain.dependencies {
+            // Specific for Desktop
+        }
+        webMain.dependencies {
+            // Specific for Web
+        }
+        iosMain.dependencies {
+            // Specific for iOS
         }
     }
 }

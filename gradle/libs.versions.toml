@@ -15,10 +15,10 @@
 #
 # ======================================================================================================================
 [versions]
-android-gradle-plugin = "9.5.0"
+android-gradle-plugin = "9.5.1"
 kotlin = "2.4.21"
-spotless = "8.10.4"
-dependency-updates = "0.66.0"
+spotless = "8.11.0"
+dependency-updates = "0.67.0"
 
 # Core Libraries
 kotlinx-coroutines = "1.11.0"

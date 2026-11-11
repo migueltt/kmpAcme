@@ -22,7 +22,6 @@ plugins {
 
 group = "com.acme.mobile.app"
 description = "Acme Android Mobile App"
-version = "0.1.0"
 
 kotlin {
     compilerOptions {
@@ -36,23 +35,25 @@ kotlin {
     dependencies {
         implementation(projects.kmpCompose)
         implementation(libs.androidx.compose.activity)
+
+        // Added to allow references to specific compose components
         implementation(libs.compose.foundation)
         implementation(libs.compose.material3)
+
         testImplementation(libs.kotlin.test.junit)
         androidTestImplementation(libs.bundles.android.test)
+
         // Not really required - all @Preview's should be in kmpCompose
         // Enable to use `@Preview` and `AndroidUiModes`
         implementation(libs.compose.ui.tooling.preview)
-        // Not really required - all @Preview's should be in kmpCompose
-        // Enable to visualize @Preview in AndroidStudio
         debugImplementation(libs.compose.ui.tooling)
     }
 }
 
 android {
-    namespace = "com.acme.mobile.app"
+    namespace = group.toString()
     defaultConfig {
-        applicationId = "com.acme.mobile.app"
+        applicationId = group.toString()
         compileSdk =
             libs.versions.androidSdkCompile
                 .get()
@@ -66,7 +67,7 @@ android {
                 .get()
                 .toInt()
         versionCode = 1
-        versionName = "1.0.0"
+        versionName = project(":kmpCompose").version.toString()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
