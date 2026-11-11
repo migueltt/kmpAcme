@@ -16,14 +16,18 @@ Related technical articles:
 
 ----
 ### AndroidStudio
-- `Android Studio Rabbit 2 | 2026.2.2 Build #AI-262.10968.63.2622.16730706` (built on October 26, 2026)
-- Kotlin Multiplatform plugin `262.10968.143-AS`
+- `Android Studio Rabbit 2 | 2026.2.2 Patch 1 Build #AI-262.10968.63.2622.16840690` (built on November 5, 2026)
+- Kotlin Multiplatform plugin `262.10968.183-AS`
 - Previews work on `kmpCompose` and `androidApp` modules without issues.
 
 ----
 ## Recent changes
 Go back in time through tags for each major change.
 
+* `November 11, 2026 - `[`tag "KMP-2026-11-11-gradle-platform"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-11-11-gradle-platform) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-11-11-gradle-platform))
+  - Minor libs and Gradle updates
+  - Change how `ModuleBuildConfig` is generated - only for main modules. Clients should rely on `kmpCompose` as much as possible.
+  - Some changes to composables
 * `October 30, 2026 - `[`tag "KMP-2026-10-30-lib-updates"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-10-30-lib-updates) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-10-30-lib-updates))
   - Minor libs and Gradle updates
 * `October 09, 2026 - `[`tag "KMP-2026-10-09-structure"`](https://github.com/migueltt/kmpAcme/releases/tag/KMP-2026-10-09-structure) ([browse files](https://github.com/migueltt/kmpAcme/tree/KMP-2026-10-09-structure))

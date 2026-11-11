@@ -22,5 +22,5 @@ class Greeting {
     private val platform = getPlatform()
 
     /** Just a sample greeting. */
-    fun greet(): String = "Hello, ${platform.name}! (version ${ModuleBuildConfig.MODULE_VERSION})"
+    fun greet(): String = "Hello, ${platform.name}! (version ${platform.moduleVersion})"
 }

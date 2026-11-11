@@ -20,13 +20,14 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 
 import com.acme.kmp.compose.AcmeApp
+import com.acme.kmp.compose.getUiPlatform
 
 /** Launches KMP application using a JVM window. */
 fun main() =
     application {
         Window(
             onCloseRequest = ::exitApplication,
-            title = "${ModuleBuildConfig.MODULE_NAME} (${com.acme.kmp.compose.ModuleBuildConfig.MODULE_VERSION})",
+            title = "Acme Desktop (${getUiPlatform().moduleVersion})",
         ) {
             AcmeApp()
         }

@@ -19,6 +19,7 @@
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.offsetAt
 import kotlinx.datetime.toLocalDateTime
+import org.gradle.kotlin.dsl.support.uppercaseFirstChar
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
@@ -89,135 +90,143 @@ spotless {
 
 // TODO: Refactor into shared build.gradle.kts or use gradle conventions
 subprojects {
-    val moduleBuildConfig =
-        tasks.register("moduleBuildConfig") {
-            description = "Creates a `ModuleBuildConfig` for each module."
+    /* Only applicable to major modules.
+     * Client modules rely on 'kmpCompose' for their implementation.
+     */
+    if (project.name in setOf("kmpShared", "kmpCompose", "kmpServerApp")) {
+        val taskName = "moduleBuildConfig"
+        val moduleBuildConfig =
+            tasks.register(taskName) {
+                description = "Creates a '$taskName' for each module."
 
-            // Use providers for lazy evaluation to capture values set in subprojects
-            inputs.property("group", provider { project.group.toString() })
-            inputs.property("version", provider { project.version.toString() })
-            inputs.property("name", provider { project.name })
-            inputs.property("description", provider { project.description ?: "" })
+                // Use providers for lazy evaluation to capture values set in subprojects
+                inputs.property("group", provider { project.group.toString() })
+                inputs.property("version", provider { project.version.toString() })
+                inputs.property("name", provider { project.name })
+                inputs.property("description", provider { project.description ?: "" })
 
-            val outputDir = layout.buildDirectory.dir("generated/sources/moduleBuildConfig/kotlin")
-            outputs.dir(outputDir)
+                val outputDir = layout.buildDirectory.dir("generated/source/$taskName/kotlin")
+                outputs.dir(outputDir)
 
-            doLast {
-                val group = project.group.toString()
-                val version = project.version.toString()
-                val description = project.description ?: ""
+                doLast {
+                    val group = project.group.toString()
+                    val version = project.version.toString()
+                    val description = project.description ?: ""
 
-                // Validate 'project' attributes
-                if (rootProject.name == group) {
-                    throw GradleException(
-                        "Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be different than '${rootProject.name}' (root-project name)",
+                    // Validate 'project' attributes
+                    if (rootProject.name == group) {
+                        throw GradleException(
+                            "Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be different than '${rootProject.name}' (root-project name)",
+                        )
+                    }
+                    if (group.isBlank()) {
+                        throw GradleException(
+                            "Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be a valid package name",
+                        )
+                    }
+                    if (version.isBlank()) {
+                        throw GradleException(
+                            "Project 'version' must be specified in '${project.name}/build.gradle.kts",
+                        )
+                    }
+                    if (description.isBlank()) {
+                        throw GradleException(
+                            "Project 'description' must be specified in '${project.name}/build.gradle.kts",
+                        )
+                    }
+
+                    val buildConfigName = taskName.uppercaseFirstChar()
+                    val pkgDirs = group.replace(".", "/")
+                    val buildConfigFile = outputDir.get().file("$pkgDirs/$buildConfigName.kt").asFile
+                    val now = Clock.System.now()
+                    val tz = TimeZone.currentSystemDefault()
+                    buildConfigFile.parentFile.mkdirs()
+                    buildConfigFile.writeText(
+                        """
+                        |package $group
+                        |
+                        |/** Build configuration for module `${project.name}` ($description).
+                        | *
+                        | * Generated on:
+                        | * ```
+                        | * ${now.toLocalDateTime(tz)}${tz.offsetAt(now)}
+                        | * ```
+                        | */
+                        |internal object $buildConfigName {
+                        |    /** Module Identifier - from `${project.name}/build.gradle.kts` module `name`. */
+                        |    const val MODULE_ID: String = "${project.name}"
+                        |    /** Module Name - from `${project.name}/build.gradle.kts` module `description`. */
+                        |    const val MODULE_NAME: String = "$description"
+                        |    /** Module Version - from `${project.name}/build.gradle.kts` module `version`.  */
+                        |    const val MODULE_VERSION: String = "$version"
+                        |    /** Module Group - from `${project.name}/build.gradle.kts` module `group`.  */
+                        |    const val MODULE_GROUP: String = "$group"
+                        |}
+                        """.trimMargin(),
                     )
                 }
-                if (group.isBlank()) {
-                    throw GradleException(
-                        "Project 'group' must be specified in '${project.name}/build.gradle.kts' and must be a valid package name",
-                    )
-                }
-                if (version.isBlank()) {
-                    throw GradleException("Project 'version' must be specified in '${project.name}/build.gradle.kts")
-                }
-                if (description.isBlank()) {
-                    throw GradleException(
-                        "Project 'description' must be specified in '${project.name}/build.gradle.kts",
-                    )
-                }
-
-                val buildConfigName = "ModuleBuildConfig"
-                val pkgDirs = group.replace(".", "/")
-                val buildConfigFile = outputDir.get().file("$pkgDirs/$buildConfigName.kt").asFile
-                val now = Clock.System.now()
-                val tz = TimeZone.currentSystemDefault()
-                buildConfigFile.parentFile.mkdirs()
-                buildConfigFile.writeText(
-                    """
-                    |package $group
-                    |
-                    |/** Build-Config for module `${project.name}` ($description).
-                    | *
-                    | * Generated on:
-                    | * ```
-                    | * ${now.toLocalDateTime(tz)}${tz.offsetAt(now)}
-                    | * ```
-                    | */
-                    |object $buildConfigName {
-                    |    /** Module Identifier - from `build.gradle.kts` module `name`. */
-                    |    const val MODULE_ID: String = "${project.name}"
-                    |    /** Module Name - from `build.gradle.kts` module `description`. */
-                    |    const val MODULE_NAME: String = "$description"
-                    |    /** Module Version - from `build.gradle.kts` module `version`.  */
-                    |    const val MODULE_VERSION: String = "$version"
-                    |    /** Module Group - from `build.gradle.kts` module `group`.  */
-                    |    const val MODULE_GROUP: String = "$group"
-                    |}
-                    """.trimMargin(),
-                )
             }
-        }
 
-    // Wiring: Hook into the 'kotlin' extension regardless of the specific plugin type
-    afterEvaluate {
-        // Find the Kotlin extension by type to be more robust across different plugin versions/types
-        val kotlinExt = extensions.findByType(org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension::class.java)
+        // Wiring: Hook into the 'kotlin' extension regardless of the specific plugin type
+        afterEvaluate {
+            // Find the Kotlin extension by type to be more robust across different plugin versions/types
+            val kotlinExt = extensions.findByType(org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension::class.java)
 
-        if (kotlinExt != null) {
-            try {
-                val sourceSets = kotlinExt.sourceSets
-                listOf("main", "commonMain").forEach { sourceSetName ->
-                    sourceSets.findByName(sourceSetName)?.kotlin?.srcDir(moduleBuildConfig)
-                }
-            } catch (_: Exception) {
-                // If direct access fails, fallback to reflection
+            if (kotlinExt != null) {
                 try {
-                    val getSourceSets = kotlinExt.javaClass.getMethod("getSourceSets")
-                    val sourceSets = getSourceSets.invoke(kotlinExt) as NamedDomainObjectContainer<*>
+                    val sourceSets = kotlinExt.sourceSets
                     listOf("main", "commonMain").forEach { sourceSetName ->
-                        sourceSets.findByName(sourceSetName)?.let { sourceSet ->
-                            val getKotlin = sourceSet.javaClass.getMethod("getKotlin")
-                            val kotlinSourceSet = getKotlin.invoke(sourceSet)
-                            val srcDir = kotlinSourceSet.javaClass.getMethod("srcDir", Any::class.java)
-                            srcDir.invoke(kotlinSourceSet, moduleBuildConfig)
+                        sourceSets.findByName(sourceSetName)?.kotlin?.srcDir(moduleBuildConfig)
+                    }
+                } catch (_: Exception) {
+                    // If direct access fails, fallback to reflection
+                    try {
+                        val getSourceSets = kotlinExt.javaClass.getMethod("getSourceSets")
+                        val sourceSets = getSourceSets.invoke(kotlinExt) as NamedDomainObjectContainer<*>
+                        listOf("main", "commonMain").forEach { sourceSetName ->
+                            sourceSets.findByName(sourceSetName)?.let { sourceSet ->
+                                val getKotlin = sourceSet.javaClass.getMethod("getKotlin")
+                                val kotlinSourceSet = getKotlin.invoke(sourceSet)
+                                val srcDir = kotlinSourceSet.javaClass.getMethod("srcDir", Any::class.java)
+                                srcDir.invoke(kotlinSourceSet, moduleBuildConfig)
+                            }
                         }
+                    } catch (_: Exception) {
                     }
-                } catch (_: Exception) {
                 }
             }
-        }
 
-        // Ensure Android projects always run the task before building and recognize the source dir
-        plugins.withId("com.android.application") {
-            tasks.findByName("preBuild")?.dependsOn(moduleBuildConfig)
-            extensions.findByName("android")?.let { android ->
-                try {
-                    val getSourceSets = android.javaClass.getMethod("getSourceSets")
-                    val sourceSets = getSourceSets.invoke(android) as NamedDomainObjectContainer<*>
-                    sourceSets.findByName("main")?.let { main ->
-                        val getJava = main.javaClass.getMethod("getJava")
-                        val javaSourceSet = getJava.invoke(main)
-                        val srcDir = javaSourceSet.javaClass.getMethod("srcDir", Any::class.java)
-                        srcDir.invoke(javaSourceSet, moduleBuildConfig)
+            // Ensure Android projects always run the task before building and recognize the source dir
+            plugins.withId("com.android.application") {
+                tasks.findByName("preBuild")?.dependsOn(moduleBuildConfig)
+                extensions.findByName("android")?.let { android ->
+                    try {
+                        val getSourceSets = android.javaClass.getMethod("getSourceSets")
+                        val sourceSets = getSourceSets.invoke(android) as NamedDomainObjectContainer<*>
+                        sourceSets.findByName("main")?.let { main ->
+                            val getJava = main.javaClass.getMethod("getJava")
+                            val javaSourceSet = getJava.invoke(main)
+                            val srcDir = javaSourceSet.javaClass.getMethod("srcDir", Any::class.java)
+                            srcDir.invoke(javaSourceSet, moduleBuildConfig)
+                        }
+                    } catch (_: Exception) {
                     }
-                } catch (_: Exception) {
                 }
             }
-        }
-        plugins.withId("com.android.library") {
-            tasks.findByName("preBuild")?.dependsOn(moduleBuildConfig)
-            extensions.findByName("android")?.let { android ->
-                try {
-                    val getSourceSets = android.javaClass.getMethod("getSourceSets")
-                    val sourceSets = getSourceSets.invoke(android) as NamedDomainObjectContainer<*>
-                    sourceSets.findByName("main")?.let { main ->
-                        val getJava = main.javaClass.getMethod("getJava")
-                        val javaSourceSet = getJava.invoke(main)
-                        val srcDir = javaSourceSet.javaClass.getMethod("srcDir", Any::class.java)
-                        srcDir.invoke(javaSourceSet, moduleBuildConfig)
+            plugins.withId("com.android.library") {
+                tasks.findByName("preBuild")?.dependsOn(moduleBuildConfig)
+                extensions.findByName("android")?.let { android ->
+                    try {
+                        val getSourceSets = android.javaClass.getMethod("getSourceSets")
+                        val sourceSets = getSourceSets.invoke(android) as NamedDomainObjectContainer<*>
+                        sourceSets.findByName("main")?.let { main ->
+                            val getJava = main.javaClass.getMethod("getJava")
+                            val javaSourceSet = getJava.invoke(main)
+                            val srcDir = javaSourceSet.javaClass.getMethod("srcDir", Any::class.java)
+                            srcDir.invoke(javaSourceSet, moduleBuildConfig)
+                        }
+                    } catch (_: Exception) {
                     }
-                } catch (_: Exception) {
                 }
             }
         }
