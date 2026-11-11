@@ -44,10 +44,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.AndroidUiModes
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.jetbrains.compose.resources.painterResource
 
@@ -171,12 +174,39 @@ private fun GreetingSection(
         }
         AnimatedVisibility(showGreeting) {
             Column(
-                modifier = Modifier.fillMaxWidth(fraction = 0.6f).padding(top = 16.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Image(painterResource(Res.drawable.compose_multiplatform), null)
+                Image(
+                    painter = painterResource(Res.drawable.compose_multiplatform),
+                    modifier = Modifier.fillMaxWidth(fraction = 0.6f).padding(top = 16.dp) ,
+                    contentDescription = null,
+                )
                 Spacer(Modifier.height(8.dp))
                 Text("Compose: $greeting")
+                getUiPlatform().also {
+                    Text(
+                        text = "Module ID: ${it.moduleId}",
+                        fontSize = 12.sp,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    Text(
+                        text = "Module Version: ${it.moduleVersion}",
+                        fontSize = 12.sp,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    Text(
+                        text = "Module Name: ${it.moduleName}",
+                        fontSize = 12.sp,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    Text(
+                        text = "Module Package: ${it.modulePackage}",
+                        fontSize = 12.sp,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+
             }
         }
     }

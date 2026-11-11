@@ -23,6 +23,18 @@ abstract class Platform {
         const val API_ACME_DATA: String = "/acme/data"
     }
 
+    /** Module ID based on `kmpShared` gradle `name` configuration. */
+    val moduleId: String = ModuleBuildConfig.MODULE_ID
+
+    /** Module name based on `kmpShared` gradle `description` configuration. */
+    val moduleName: String = ModuleBuildConfig.MODULE_NAME
+
+    /** Module Version based on `kmpShared` gradle `version` configuration. */
+    val moduleVersion: String = ModuleBuildConfig.MODULE_VERSION
+
+    /** Module base package based on `kmpShared` gradle `group` configuration. */
+    val modulePackage: String = ModuleBuildConfig.MODULE_GROUP
+
     /** Platform name. */
     abstract val name: String
 
